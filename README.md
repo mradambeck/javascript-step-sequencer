@@ -1,3 +1,3 @@
-# javascript-step-sequencer
+x.# javascript-step-sequencer
 
 Step Sequencer made with Javascript Audio.

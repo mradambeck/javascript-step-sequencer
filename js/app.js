@@ -1,6 +1,6 @@
 var context = new AudioContext();
 
-var filterValue = 900;
+var filterValue = 3000;
 
 // Play oscillators at certain frequency and for a certain time
 var playNote = function (frequency, startTime, duration) {
@@ -27,8 +27,8 @@ var playNote = function (frequency, startTime, duration) {
   volume.connect(context.destination);
 
   // multiply for octaves
-  osc1.frequency.value = (frequency)+1 ;
-  osc2.frequency.value = (frequency * 2)-1;
+  osc1.frequency.value = (frequency * 2)+1 ;
+  osc2.frequency.value = (frequency * 3)-1;
   // Detune oscillators for chorus effect
   // osc1.frequency.value = frequency + 1;
   // osc2.frequency.value = frequency - 1;
