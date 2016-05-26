@@ -118,20 +118,3 @@ function eighthNote(){
   playNote(measure[7], context.currentTime, noteLength);
   window.setTimeout(firstNote, tempo);
 }
-
-
-// var silence = function(startTime, duration){
-//   var osc0 = context.createOscillator(),
-//       volume = context.createGain();
-//
-//   // Set oscillator wave type
-//   osc0.type = 'triangle';
-//
-//   // Set volume to 0, connect to speakers
-//   volume.gain.value = 0;
-//   osc0.connect(volume);
-//   volume.connect(context.destination);
-//
-//   osc0.start(startTime);
-//   osc0.stop(startTime + duration);
-// };
