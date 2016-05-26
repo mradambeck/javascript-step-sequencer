@@ -30,14 +30,28 @@ class Synth {
 }
 
 class FilterBank {
-  constructor (filterValue, detune, q, connection) {
+  constructor (filterValue, detune, q, connection, delayValue) {
 
     // Biquad Filter
-      let bq = this.biquadFilter = context.createBiquadFilter();
-      bq.frequency.value = filterValue;
-      bq.detune.value = detune;
-      bq.Q.value = q;
-      bq.connect(connection);
+    let bq = this.biquadFilter = context.createBiquadFilter();
+    bq.frequency.value = filterValue;
+    bq.detune.value = detune;
+    bq.Q.value = q;
+
+    // Delay
+    let delay = this.delay = context.createDelay();
+    delay.delayTime.value = delayValue;
+
+    // Send Delay and Reverb through a sidechain
+    let sideChainVolume = this.sideChainVolume = context.createGain();
+    sideChainVolume.gain.value = 0.1;
+
+
+    // Connections
+    bq.connect(delay);
+    delay.connect(sideChainVolume);
+    sideChainVolume.connect(connection);
+    bq.connect(connection);
 
   }
 }
@@ -56,6 +70,6 @@ var   a1 = 55, bb1 = 58.27, b1 = 61.74, c2 = 65.41, db2 = 69.30, d2 = 73.42, eb2
       db4 = 277.18, d4 = 293.66, eb4 = 311.13, e4 = 329.63, f4 = 349.23, gb4 = 369.99
 ;
 
-var fx = new FilterBank(3000, 1000, 20, amplifier.input);
+var fx = new FilterBank(3000, 1000, 20, amplifier.input, 0.2);
 var osc1 = new Synth('triangle', fx.biquadFilter);
 osc1.playNote();
