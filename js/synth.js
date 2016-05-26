@@ -1,32 +1,39 @@
 var context = new AudioContext();
 var speaker = context.destination;
+var now = context.currentTime;
 
 class Synth {
-  constructor (waveform = 'triangle') {
-    // Setup Oscillator
-    this.osc = context.createOscillator();
-    this.osc.type = 'triangle';
-    this.volume = context.createGain();
-    this.volume.gain.value = 0.15;
+  constructor (waveform = 'triangle', connection) {
+
+    let volume = this.volume = context.createGain();
+    volume.gain.value = 0.15;
 
     // Play a note
-    this.playNote = function (frequency, startTime, duration){
-      this.osc.frequency.value = (frequency);
+    this.playNote = function (frequency = 440, startTime = now, duration = 0.5){
+      // Setup Oscillator
+      let osc = this.osc = context.createOscillator();
+      osc.type = waveform;
+      osc.frequency.value = (frequency);
 
       // Subtle fade out of note
-      this.volume.gain.setValueAtTime(0.2, startTime + duration - 0.04);
-      this.volume.gain.linearRampToValueAtTime(0, startTime + duration);
+      volume.gain.setValueAtTime(0.2, startTime + duration - 0.04);
+      volume.gain.linearRampToValueAtTime(0, startTime + duration);
 
       // Start and stop note
-      this.osc.start(startTime);
-      this.osc.stop(startTime + duration);
+      osc.start(startTime);
+      osc.stop(startTime + duration);
+      osc.connect(volume);
     };
 
-    this.osc.connect(this.volume);
-
-    this.volume.connect(speaker);
+    volume.connect(connection);
   }
 }
+
+// class Amplifier {
+//   constructor () {
+//
+//   }
+// }
 
 // Note frequencies
 var   a1 = 55, bb1 = 58.27, b1 = 61.74, c2 = 65.41, db2= 69.30, d2 = 73.42, eb2 = 77.78, e2 = 82.41, f2 = 87.31, gb2 = 92.50,
@@ -35,5 +42,5 @@ var   a1 = 55, bb1 = 58.27, b1 = 61.74, c2 = 65.41, db2= 69.30, d2 = 73.42, eb2 
       b3 = 246.94, c4 = 261.63, db4 = 277.18, d4 = 293.66, eb4 = 311.13, e4 = 329.63, f4 = 349.23, gb4 = 369.99
 ;
 
-var osc1 = new Synth('triangle');
-osc1.playNote(c4, context.currentTime, 0.5);
+var osc1 = new Synth('triangle', speaker);
+osc1.playNote();
