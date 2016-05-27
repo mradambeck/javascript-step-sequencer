@@ -109,14 +109,38 @@ class NoiseMaker {
 }
 
 
+
 $(function(){
   const CNTXT = new AudioContext();
   window.noises = {};
 
   $("button").click(function(){
-    let freq = $(this).data("freq")
+
+    let freq = $(this).data("freq");
     let note = window.noises[freq] || new NoiseMaker(freq, 0.5, 'square', CNTXT);
-    note.sound();
+
+
+
+
+    var playIt = function () {
+
+      var noteMaker = function() {
+        note.sound();
+      };
+
+      note.sound();
+
+      setInterval(
+        noteMaker, 900
+      );
+
+    };
+
+    playIt();
+    // note.sound();
+
+
+
   });
 
 });
