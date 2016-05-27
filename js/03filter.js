@@ -5,11 +5,11 @@
 class FilterBank {
   constructor (config) {
 
-    let filterValue = config.filterValue || null;
-    let detune = config.detune || null;
-    let q = config.q || null;
-    let connection = config.connection || null;
-    let delayValue = config.delayValue || null;
+    let filterValue = config.filterValue || 15000;
+    let detune = config.detune || 1000;
+    let q = config.q || 20;
+    let connection = config.connection || amplifier.input;
+    let delayValue = config.delayValue || 0.2;
 
     // Biquad Filter
     let bq = this.biquadFilter = context.createBiquadFilter();
