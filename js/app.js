@@ -13,7 +13,6 @@ class Synth {
   }
 
   playNote (frequency = 440, duration = 0.5, wave = 'triangle') {
-    console.log("playing note");
     let osc = this.osc;
     osc.type = wave;
     osc.frequency.value = frequency;
@@ -33,7 +32,6 @@ class Synth {
 class FilterBank {
   constructor (config) {
 
-    console.log("created FilterBank");
     let the_context = config.context || console.error('No Audio Context');
     let filterValue = config.filterValue || 15000;
     let detune = config.detune || 1000;
@@ -112,32 +110,52 @@ class NoiseMaker {
 
 $(function(){
   const CNTXT = new AudioContext();
-  window.noises = {};
+  // window.noises = {};
 
   $("button").click(function(){
 
-
-    let freq = $(this).data("freq");
-    let note = window.noises[freq] || new NoiseMaker(freq, 0.5, 'square', CNTXT);
-
+    // let freq = $(this).data("freq");
+    // let note = window.noises[freq] || new NoiseMaker(freq, 0.5, 'square', CNTXT);
 
 
 
-    var playIt = function () {
+    var pattern = [196, 220, 110, 185, 110, 196, 369.99, 55];
 
-      var noteMaker = function() {
-        note.sound();
+    var startLoop = function () {
+
+      var measure = 0;
+
+      let freq = pattern[measure];
+      let note = new NoiseMaker(freq, 0.5, 'square', CNTXT);
+
+
+      var inLoopNote = function() {
+
+        if (measure !== 7){
+          let freq = pattern[measure];
+          let note = new NoiseMaker(freq, 0.5, 'square', CNTXT);
+          console.log(measure);
+          console.log(freq);
+          note.sound();
+          measure++;
+        } else {
+          note.sound();
+          measure = 0;
+        }
+
       };
 
-      note.sound();
+      // console.log(measure);
+      // note.sound();
+      // measure++;
 
       setInterval(
-        noteMaker, 900
+        inLoopNote, 900
       );
 
     };
 
-    playIt();
+    startLoop();
     // note.sound();
 
 
