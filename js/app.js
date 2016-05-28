@@ -3,6 +3,7 @@ class Synth {
   constructor (connection, the_context) {
 
     this.now = the_context.currentTime;
+
     // Setup Oscillator
     this.osc = the_context.createOscillator();
 
@@ -110,24 +111,16 @@ class NoiseMaker {
 
 $(function(){
   const CNTXT = new AudioContext();
-  // window.noises = {};
 
   $("button").click(function(){
-
-    // let freq = $(this).data("freq");
-    // let note = window.noises[freq] || new NoiseMaker(freq, 0.5, 'square', CNTXT);
-
-
 
     var pattern = [196, 220, 110, 185, 110, 196, 369.99, 55];
 
     var startLoop = function () {
-
       var measure = 0;
 
       let freq = pattern[measure];
       let note = new NoiseMaker(freq, 0.5, 'square', CNTXT);
-
 
       var inLoopNote = function() {
 
@@ -149,7 +142,8 @@ $(function(){
       // note.sound();
       // measure++;
 
-      setInterval(
+
+      setInterval( // Loop notes
         inLoopNote, 900
       );
 
