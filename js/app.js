@@ -116,6 +116,7 @@ $(function(){
 
   $("button").click(function(){
 
+
     let freq = $(this).data("freq");
     let note = window.noises[freq] || new NoiseMaker(freq, 0.5, 'square', CNTXT);
 
