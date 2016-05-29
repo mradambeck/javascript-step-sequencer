@@ -103,7 +103,7 @@ class Loop {
 
     var traverseMeasure = function(pattern, this_cntxt){
       let freq = pattern[beat]; // play the appropriate note in the measure
-      let note = new NoiseMaker(freq, 0.5, 'square', this_cntxt);
+      let note = new NoiseMaker(freq, 0.5, 'triangle', this_cntxt);
 
       note.sound();
 
@@ -127,18 +127,36 @@ class Loop {
 $(function(){
   const CNTXT = new AudioContext(); // This creates the space in which all audio occurs
 
-  // Available note frequencies
-  let pitch = {
-    a1: 55, bb1: 58.27, b1: 61.74, c2: 65.41, db2: 69.30, d2: 73.42, eb2: 77.78,
-    e2: 82.41, f2: 87.31, gb2: 92.50, g2: 98, ab2: 103.83, a2: 110, bb2: 116.54,
-    b2: 123.47, c3: 130.81, db3: 138.59, d3: 146.83, eb3: 155.56, e3: 164.81,
-    f3: 174.61, gb3: 185, g3: 196, ab3: 207.65, a3: 220, bb3: 233.08, b3: 246.94,
-    c4: 261.63, db4: 277.18, d4: 293.66, eb4: 311.13, e4: 329.63, f4: 349.23, gb4: 369.99
+  let makePitch = function(note) {
+
+    return function(octave) {
+      if (octave === 0){
+        return note / 2;
+      } else if (octave === 1) {
+        return note;
+      } else {
+
+        let octaveMaker = function(note, octave){
+          octave = octave - 1;
+          for (i = 0; i < octave; i ++){
+            note = note * 2;
+          }
+          return note;
+        };
+
+        return octaveMaker(note, octave);
+      }
+    };
   };
 
+  var c = makePitch(32.70325), db = makePitch(34.647875), d = makePitch(36.708125), eb = makePitch(38.890875), e = makePitch(41.2035),
+      f = makePitch(43.6535), gb = makePitch(46.24925), g = makePitch(48.999375), ab = makePitch(51.913125), a = makePitch(55),
+      bb = makePitch(58.2705), b = makePitch(61.735375);
+
   // The notes in the measure:
-  let pattern = [pitch.a1, pitch.a1, pitch.db3, pitch.db3, pitch.a2, pitch.a2, pitch.bb3, pitch.bb3];
-  let bpm = 110; // Set beats per minute (calculated to milliseconds within Loop object)
+  let pattern = [ c(4), b(4), a(3), c(3), c(4), b(3), g(3), b(3) ];
+  console.log(pattern);
+  let bpm = 90; // Set beats per minute (calculated to milliseconds within Loop object)
 
   $(".start-loop").click(function(){
 
