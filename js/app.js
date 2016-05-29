@@ -26,9 +26,7 @@ class Synth {
     osc.stop(stopTime);
     osc.connect(this.volume); // Connect Oscillator to Volume
   }
-
 }
-
 
 class FilterBank {
   constructor (configFx) {
@@ -85,12 +83,6 @@ class NoiseMaker {
       context: context
     };
 
-    // window.setTimeout(closeContext, 1);
-    //
-    // var closeContext = function(){
-    //   context.close();
-    // };
-
   }
 
   sound (){
@@ -99,9 +91,32 @@ class NoiseMaker {
   }
 }
 
-
 class Loop {
-  constructor(args){
+  constructor(cntxt){
+    this.cntxt = cntxt;
+
+  }
+
+
+
+  play(pattern){
+
+    var beat = 0;
+    var traverseMeasure = function(pattern, this_cntxt){
+
+      let freq = pattern[beat];
+      let note = new NoiseMaker(freq, 0.5, 'square', this_cntxt);
+      note.sound();
+
+      beat < 7 ? ( beat++ ) : ( beat = 0 ) ;
+
+    };
+
+    var playNoteInPattern = function(pattern, this_cntxt){
+      setInterval( traverseMeasure.bind(0, pattern, this_cntxt), 900);
+    };
+
+    playNoteInPattern(pattern, this.cntxt);
 
   }
 }
@@ -118,52 +133,15 @@ $(function(){
     c4: 261.63, db4: 277.18, d4: 293.66, eb4: 311.13, e4: 329.63, f4: 349.23, gb4: 369.99
   };
 
+
   // var loop = new Loop(args);
   var pattern = [pitch.a1, pitch.a1, pitch.db3, pitch.db3, pitch.a2, pitch.a2, pitch.bb3, pitch.bb3];
 
-
   $(".start-loop").click(function(){
 
-    var startLoop = function () {
-      var measure = 0;
+    var loop = new Loop (CNTXT);
 
-      let freq = pattern[measure];
-      let note = new NoiseMaker(freq, 0.5, 'square', CNTXT);
-
-      var inLoopNote = function() {
-
-        if (measure < 7){
-          let freq = pattern[measure];
-          let note = new NoiseMaker(freq, 0.5, 'square', CNTXT);
-          console.log(measure);
-          console.log(freq);
-          note.sound();
-          measure++;
-        } else {
-          console.log(measure);
-          console.log(freq);
-          note.sound();
-          measure = 0;
-        }
-
-      };
-
-
-
-      var loopIt = function(){
-        setInterval( // Loop notes
-          inLoopNote, 900
-        );
-      };
-
-      loopIt();
-
-    };
-
-    startLoop();
-    // note.sound();
-
-
+    loop.play(pattern);
 
   });
 
