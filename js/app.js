@@ -1,7 +1,6 @@
 class Synth {
 
   constructor (connection, the_context) {
-
     this.now = the_context.currentTime;
 
     // Setup Oscillator
@@ -10,8 +9,8 @@ class Synth {
     let volume = this.volume = the_context.createGain();
     volume.gain.value = 0.15;
     volume.connect(connection); // Connect Synth to next path (Filter)
-
   }
+
 
   playNote (frequency = 440, duration = 0.5, wave = 'triangle') {
     let osc = this.osc;
@@ -26,6 +25,7 @@ class Synth {
     osc.stop(stopTime);
     osc.connect(this.volume); // Connect Oscillator to Volume
   }
+
 }
 
 class FilterBank {
@@ -65,9 +65,9 @@ class FilterBank {
 class NoiseMaker {
   constructor(freq, dur, wave, context){
     var speaker = context.destination; // OUTPUT
-    this.freq = freq;
-    this.dur = dur;
-    this.wave = wave;
+    this.freq = freq; // note frequency
+    this.dur = dur; // note duration
+    this.wave = wave; // note waveform
 
     var amplifier = {};
     amplifier.input = context.createGain();
@@ -85,6 +85,7 @@ class NoiseMaker {
 
   }
 
+  // call to create a sound
   sound (){
     var fx = new FilterBank(this.configFx);
     new Synth(fx.biquadFilter, this.configFx.context).playNote(this.freq, this.dur, this.wave);
@@ -93,27 +94,28 @@ class NoiseMaker {
 
 class Loop {
   constructor(cntxt){
-    this.cntxt = cntxt;
-
+    this.cntxt = cntxt; // main audio context
   }
 
 
 
   play(pattern){
 
-    var beat = 0;
-    var traverseMeasure = function(pattern, this_cntxt){
+    var beat = 0; // Start the measure at the first beat
 
-      let freq = pattern[beat];
+    var traverseMeasure = function(pattern, this_cntxt){
+      let freq = pattern[beat]; // play the appropriate note in the measure
       let note = new NoiseMaker(freq, 0.5, 'square', this_cntxt);
+
       note.sound();
 
+      // increment if not at the last beat in the measure, start over at the end of the measure:
       beat < 7 ? ( beat++ ) : ( beat = 0 ) ;
 
     };
 
     var playNoteInPattern = function(pattern, this_cntxt){
-      setInterval( traverseMeasure.bind(0, pattern, this_cntxt), 900);
+      setInterval( traverseMeasure.bind(null, pattern, this_cntxt), 900); // set timing TODO: create BPM
     };
 
     playNoteInPattern(pattern, this.cntxt);
@@ -122,9 +124,9 @@ class Loop {
 }
 
 $(function(){
-  const CNTXT = new AudioContext();
+  const CNTXT = new AudioContext(); // This creates the space in which all audio occurs
 
-  // Note frequencies
+  // Available note frequencies
   var pitch = {
     a1: 55, bb1: 58.27, b1: 61.74, c2: 65.41, db2: 69.30, d2: 73.42, eb2: 77.78,
     e2: 82.41, f2: 87.31, gb2: 92.50, g2: 98, ab2: 103.83, a2: 110, bb2: 116.54,
@@ -133,20 +135,14 @@ $(function(){
     c4: 261.63, db4: 277.18, d4: 293.66, eb4: 311.13, e4: 329.63, f4: 349.23, gb4: 369.99
   };
 
-
-  // var loop = new Loop(args);
+  // The notes in the measure:
   var pattern = [pitch.a1, pitch.a1, pitch.db3, pitch.db3, pitch.a2, pitch.a2, pitch.bb3, pitch.bb3];
 
   $(".start-loop").click(function(){
 
     var loop = new Loop (CNTXT);
-
     loop.play(pattern);
 
   });
-
-
-
-
 
 });
