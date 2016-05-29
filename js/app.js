@@ -31,14 +31,14 @@ class Synth {
 
 
 class FilterBank {
-  constructor (config) {
+  constructor (configFx) {
 
-    let the_context = config.context || console.error('No Audio Context');
-    let filterValue = config.filterValue || 15000;
-    let detune = config.detune || 1000;
-    let q = config.q || 20;
-    let connection = config.connection || amplifier.input;
-    let delayValue = config.delayValue || 0.2;
+    let the_context = configFx.context || console.error('No Audio Context');
+    let filterValue = configFx.filterValue || 15000;
+    let detune = configFx.detune || 1000;
+    let q = configFx.q || 20;
+    let connection = configFx.connection || amplifier.input;
+    let delayValue = configFx.delayValue || 0.2;
 
     // Biquad Filter
     let bq = this.biquadFilter = the_context.createBiquadFilter();
@@ -71,20 +71,12 @@ class NoiseMaker {
     this.dur = dur;
     this.wave = wave;
 
-    // Note frequencies
-    var   a1 = 55, bb1 = 58.27, b1 = 61.74, c2 = 65.41, db2 = 69.30, d2 = 73.42, eb2 = 77.78,
-          e2 = 82.41, f2 = 87.31, gb2 = 92.50, g2 = 98, ab2 = 103.83, a2 = 110.00, bb2 = 116.54,
-          b2 = 123.47, c3 = 130.81, db3 = 138.59, d3 = 146.83, eb3 = 155.56, e3 = 164.81, f3 = 174.61,
-          gb3 = 185, g3 = 196, ab3 = 207.65, a3 = 220, bb3 = 233.08, b3 = 246.94, c4 = 261.63,
-          db4 = 277.18, d4 = 293.66, eb4 = 311.13, e4 = 329.63, f4 = 349.23, gb4 = 369.99
-    ;
-
     var amplifier = {};
     amplifier.input = context.createGain();
     amplifier.input.gain.value = 1;
     amplifier.input.connect(speaker);
 
-    this.initFx = {
+    this.configFx = {
       filterValue: 3000,
       detune: 1000,
       q: 20,
@@ -102,19 +94,35 @@ class NoiseMaker {
   }
 
   sound (){
-    var fx = new FilterBank(this.initFx);
-    new Synth(fx.biquadFilter, this.initFx.context).playNote(this.freq, this.dur, this.wave);
+    var fx = new FilterBank(this.configFx);
+    new Synth(fx.biquadFilter, this.configFx.context).playNote(this.freq, this.dur, this.wave);
   }
 }
 
 
+class Loop {
+  constructor(args){
+
+  }
+}
 
 $(function(){
   const CNTXT = new AudioContext();
 
-  $("button").click(function(){
+  // Note frequencies
+  var pitch = {
+    a1: 55, bb1: 58.27, b1: 61.74, c2: 65.41, db2: 69.30, d2: 73.42, eb2: 77.78,
+    e2: 82.41, f2: 87.31, gb2: 92.50, g2: 98, ab2: 103.83, a2: 110, bb2: 116.54,
+    b2: 123.47, c3: 130.81, db3: 138.59, d3: 146.83, eb3: 155.56, e3: 164.81,
+    f3: 174.61, gb3: 185, g3: 196, ab3: 207.65, a3: 220, bb3: 233.08, b3: 246.94,
+    c4: 261.63, db4: 277.18, d4: 293.66, eb4: 311.13, e4: 329.63, f4: 349.23, gb4: 369.99
+  };
 
-    var pattern = [196, 220, 110, 185, 110, 196, 369.99, 55];
+  // var loop = new Loop(args);
+  var pattern = [pitch.a1, pitch.a1, pitch.db3, pitch.db3, pitch.a2, pitch.a2, pitch.bb3, pitch.bb3];
+
+
+  $(".start-loop").click(function(){
 
     var startLoop = function () {
       var measure = 0;
@@ -124,7 +132,7 @@ $(function(){
 
       var inLoopNote = function() {
 
-        if (measure !== 7){
+        if (measure < 7){
           let freq = pattern[measure];
           let note = new NoiseMaker(freq, 0.5, 'square', CNTXT);
           console.log(measure);
@@ -132,20 +140,23 @@ $(function(){
           note.sound();
           measure++;
         } else {
+          console.log(measure);
+          console.log(freq);
           note.sound();
           measure = 0;
         }
 
       };
 
-      // console.log(measure);
-      // note.sound();
-      // measure++;
 
 
-      setInterval( // Loop notes
-        inLoopNote, 900
-      );
+      var loopIt = function(){
+        setInterval( // Loop notes
+          inLoopNote, 900
+        );
+      };
+
+      loopIt();
 
     };
 
@@ -155,5 +166,9 @@ $(function(){
 
 
   });
+
+
+
+
 
 });
