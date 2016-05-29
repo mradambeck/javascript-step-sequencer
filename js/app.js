@@ -97,9 +97,7 @@ class Loop {
     this.cntxt = cntxt; // main audio context
   }
 
-
-
-  play(pattern){
+  play(pattern, bpm){
 
     var beat = 0; // Start the measure at the first beat
 
@@ -114,8 +112,11 @@ class Loop {
 
     };
 
+
+    var tempo = (1000 * 60 / bpm / 2);
+
     var playNoteInPattern = function(pattern, this_cntxt){
-      setInterval( traverseMeasure.bind(null, pattern, this_cntxt), 900); // set timing TODO: create BPM
+      setInterval( traverseMeasure.bind(null, pattern, this_cntxt), tempo); // set timing TODO: create BPM
     };
 
     playNoteInPattern(pattern, this.cntxt);
@@ -127,7 +128,7 @@ $(function(){
   const CNTXT = new AudioContext(); // This creates the space in which all audio occurs
 
   // Available note frequencies
-  var pitch = {
+  let pitch = {
     a1: 55, bb1: 58.27, b1: 61.74, c2: 65.41, db2: 69.30, d2: 73.42, eb2: 77.78,
     e2: 82.41, f2: 87.31, gb2: 92.50, g2: 98, ab2: 103.83, a2: 110, bb2: 116.54,
     b2: 123.47, c3: 130.81, db3: 138.59, d3: 146.83, eb3: 155.56, e3: 164.81,
@@ -136,12 +137,13 @@ $(function(){
   };
 
   // The notes in the measure:
-  var pattern = [pitch.a1, pitch.a1, pitch.db3, pitch.db3, pitch.a2, pitch.a2, pitch.bb3, pitch.bb3];
+  let pattern = [pitch.a1, pitch.a1, pitch.db3, pitch.db3, pitch.a2, pitch.a2, pitch.bb3, pitch.bb3];
+  let bpm = 110; // Set beats per minute (calculated to milliseconds within Loop object)
 
   $(".start-loop").click(function(){
 
     var loop = new Loop (CNTXT);
-    loop.play(pattern);
+    loop.play(pattern, bpm);
 
   });
 
