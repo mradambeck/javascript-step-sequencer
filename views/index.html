@@ -1,0 +1,424 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JS Synth</title>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="styles/index.css">
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script src="scripts/app.js"></script>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class = "row">
+
+      <div class = "col-sm-8">
+
+
+        <div class = "row spacer-top">
+
+          <div class = "col-xs-6 no-right-padding">
+            <div class = "col-xs-3 col-0">
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="0" data-note="c">C</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="0" data-note="db">Db</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="0" data-note="d">D</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="0" data-note="eb">Eb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="0" data-note="e">E</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="0" data-note="f">F</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="0" data-note="gb">Gb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="0" data-note="g">G</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="0" data-note="ab">Ab</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="0" data-note="a">A</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="0" data-note="bb">Bb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="0" data-note="b">B</button>
+              </div>
+              <div class = "row spacer-top">
+                <button class = "btn btn-block btn-info" data-column="0" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-block btn-info" data-column="0" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
+              </div>
+
+            </div>
+
+            <div class = "col-xs-3 col-1">
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="1" data-note="c">C</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="1" data-note="db">Db</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="1" data-note="d">D</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="1" data-note="eb">Eb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="1" data-note="e">E</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="1" data-note="f">F</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="1" data-note="gb">Gb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="1" data-note="g">G</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="1" data-note="ab">Ab</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="1" data-note="a">A</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="1" data-note="bb">Bb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="1" data-note="b">B</button>
+              </div>
+              <div class = "row spacer-top">
+                <button class = "btn btn-block btn-info" data-column="1" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-block btn-info" data-column="1" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
+              </div>
+
+            </div>
+
+            <div class = "col-xs-3 col-2">
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="2" data-note="c">C</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="2" data-note="db">Db</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="2" data-note="d">D</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="2" data-note="eb">Eb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="2" data-note="e">E</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="2" data-note="f">F</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="2" data-note="gb">Gb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="2" data-note="g">G</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="2" data-note="ab">Ab</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="2" data-note="a">A</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="2" data-note="bb">Bb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="2" data-note="b">B</button>
+              </div>
+              <div class = "row spacer-top">
+                <button class = "btn btn-block btn-info" data-column="2" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-block btn-info" data-column="2" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
+              </div>
+
+            </div>
+
+            <div class = "col-xs-3 col-3">
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="3" data-note="c">C</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="3" data-note="db">Db</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="3" data-note="d">D</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="3" data-note="eb">Eb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="3" data-note="e">E</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="3" data-note="f">F</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="3" data-note="gb">Gb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="3" data-note="g">G</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="3" data-note="ab">Ab</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="3" data-note="a">A</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="3" data-note="bb">Bb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="3" data-note="b">B</button>
+              </div>
+              <div class = "row spacer-top">
+                <button class = "btn btn-block btn-info" data-column="3" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-block btn-info" data-column="3" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
+              </div>
+
+            </div>
+
+
+          </div>
+
+          <div class = "col-xs-6 no-left-padding">
+            <div class = "col-xs-3 col-4">
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="4" data-note="c">C</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="4" data-note="db">Db</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="4" data-note="d">D</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="4" data-note="eb">Eb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="4" data-note="e">E</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="4" data-note="f">F</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="4" data-note="gb">Gb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="4" data-note="g">G</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="4" data-note="ab">Ab</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="4" data-note="a">A</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="4" data-note="bb">Bb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="4" data-note="b">B</button>
+              </div>
+              <div class = "row spacer-top">
+                <button class = "btn btn-block btn-info" data-column="4" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-block btn-info" data-column="4" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
+              </div>
+
+            </div>
+
+            <div class = "col-xs-3 col-5">
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="5" data-note="c">C</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="5" data-note="db">Db</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="5" data-note="d">D</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="5" data-note="eb">Eb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="5" data-note="e">E</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="5" data-note="f">F</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="5" data-note="gb">Gb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="5" data-note="g">G</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="5" data-note="ab">Ab</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="5" data-note="a">A</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="5" data-note="bb">Bb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="5" data-note="b">B</button>
+              </div>
+              <div class = "row spacer-top">
+                <button class = "btn btn-block btn-info" data-column="5" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-block btn-info" data-column="5" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
+              </div>
+
+            </div>
+
+            <div class = "col-xs-3 col-6">
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="6" data-note="c">C</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="6" data-note="db">Db</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="6" data-note="d">D</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="6" data-note="eb">Eb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="6" data-note="e">E</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="6" data-note="f">F</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="6" data-note="gb">Gb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="6" data-note="g">G</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="6" data-note="ab">Ab</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="6" data-note="a">A</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="6" data-note="bb">Bb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="6" data-note="b">B</button>
+              </div>
+              <div class = "row spacer-top">
+                <button class = "btn btn-block btn-info" data-column="6" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-block btn-info" data-column="6" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
+              </div>
+
+            </div>
+
+            <div class = "col-xs-3 col-7">
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="7" data-note="c">C</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="7" data-note="db">Db</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="7" data-note="d">D</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="7" data-note="eb">Eb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="7" data-note="e">E</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="7" data-note="f">F</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="7" data-note="gb">Gb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="7" data-note="g">G</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="7" data-note="ab">Ab</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="7" data-note="a">A</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="7" data-note="bb">Bb</button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-primary btn-block" data-column="7" data-note="b">B</button>
+              </div>
+              <div class = "row spacer-top">
+                <button class = "btn btn-block btn-info" data-column="7" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
+              </div>
+              <div class = "row">
+                <button class = "btn btn-block btn-info" data-column="7" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+
+        <div class = "row spacer-top">
+          <div class = "col-sm-12">
+            <button class="btn btn-success btn-lg start-loop"><span class="glyphicon glyphicon-play" aria-hdata-columnden="true"></span></button>
+            <button class="btn btn-danger btn-lg stop-loop"><span class="glyphicon glyphicon-stop" aria-hdata-columnden="true"></span></button>
+          </div>
+        </div>
+
+      </div>
+
+
+
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+</body>
+</html>
