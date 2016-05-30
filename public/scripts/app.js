@@ -104,13 +104,12 @@ class Loop {
     var traverseMeasure = function(pattern, this_cntxt){
       let freq = pattern[beat]; // play the appropriate note in the measure
       let note = new NoiseMaker(freq, 0.5, 'triangle', this_cntxt);
-
       note.sound();
-
+      $(`#o${beat}`).toggleClass('active');
       // increment if not at the last beat in the measure, start over at the end of the measure:
       beat < 7 ? ( beat++ ) : ( beat = 0 ) ;
-
     };
+
 
 
     var tempo = (1000 * 60 / bpm / 2);
@@ -155,17 +154,37 @@ $(function(){
       bb = makePitch(58.2705), b = makePitch(61.735375);
 
   // The notes in the measure:
-  let pattern = [ c(4), b(4), a(3), c(3), c(4), b(3), g(3), b(3) ];
+  var pattern = [ c(4), b(4), a(3), c(3), c(4), b(3), g(3), b(3) ];
   console.log(pattern);
   let bpm = 90; // Set beats per minute (calculated to milliseconds within Loop object)
 
   $(".note").click(function(){
     let noteData = $(this).attr('data-note');
-    let beatData = $(this).attr('data-column');
-    console.log(noteData);
-    console.log(beatData);
-    console.log(`pattern[${beatData}] to equal ${noteData}`)
+    let beatData = parseInt($(this).attr('data-column'));
+    let octCount = parseInt($(`#o${beatData}`).text());
+
+    // TODO: Find a different way of doing this, besides using eval
+    pattern[beatData] = eval(noteData)(octCount);
+
     $(this).addClass('active');
+  });
+
+  $("button.octave-up").click(function(){
+    let beatData = $(this).attr('data-column');
+    let octId = `o${beatData}`;
+    let octCount = parseInt($(`#${octId}`).text());
+    let newCount = (octCount + 1);
+    $(`#${octId}`).text(newCount);
+  });
+
+  $("button.octave-down").click(function(){
+    let beatData = $(this).attr('data-column');
+    let octId = `o${beatData}`;
+    let octCount = parseInt($(`#${octId}`).text());
+    if (octCount > 0){
+      let newCount = (octCount - 1);
+      $(`#${octId}`).text(newCount);
+    }
   });
 
   $(".start-loop").click(function(){
