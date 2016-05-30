@@ -124,30 +124,31 @@ class Loop {
   }
 }
 
+var makePitch = function(note) {
+
+  return function(octave) {
+    if (octave === 0){
+      return note / 2;
+    } else if (octave === 1) {
+      return note;
+    } else {
+
+      let octaveMaker = function(note, octave){
+        octave = octave - 1;
+        for (i = 0; i < octave; i ++){
+          note = note * 2;
+        }
+        return note;
+      };
+
+      return octaveMaker(note, octave);
+    }
+  };
+};
+
+
 $(function(){
   const CNTXT = new AudioContext(); // This creates the space in which all audio occurs
-
-  let makePitch = function(note) {
-
-    return function(octave) {
-      if (octave === 0){
-        return note / 2;
-      } else if (octave === 1) {
-        return note;
-      } else {
-
-        let octaveMaker = function(note, octave){
-          octave = octave - 1;
-          for (i = 0; i < octave; i ++){
-            note = note * 2;
-          }
-          return note;
-        };
-
-        return octaveMaker(note, octave);
-      }
-    };
-  };
 
   var c = makePitch(32.70325), db = makePitch(34.647875), d = makePitch(36.708125), eb = makePitch(38.890875), e = makePitch(41.2035),
       f = makePitch(43.6535), gb = makePitch(46.24925), g = makePitch(48.999375), ab = makePitch(51.913125), a = makePitch(55),
@@ -157,6 +158,15 @@ $(function(){
   let pattern = [ c(4), b(4), a(3), c(3), c(4), b(3), g(3), b(3) ];
   console.log(pattern);
   let bpm = 90; // Set beats per minute (calculated to milliseconds within Loop object)
+
+  $(".note").click(function(){
+    let noteData = $(this).attr('data-note');
+    let beatData = $(this).attr('data-column');
+    console.log(noteData);
+    console.log(beatData);
+    console.log(`pattern[${beatData}] to equal ${noteData}`)
+    $(this).addClass('active');
+  });
 
   $(".start-loop").click(function(){
 
