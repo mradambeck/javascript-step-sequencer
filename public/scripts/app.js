@@ -104,8 +104,17 @@ class Loop {
     var traverseMeasure = function(pattern, this_cntxt){
       let freq = pattern[beat]; // play the appropriate note in the measure
       let note = new NoiseMaker(freq, 0.5, 'triangle', this_cntxt);
+      let lastBeat = beat - 1;
       note.sound();
-      $(`#o${beat}`).toggleClass('active');
+
+      if ( beat === 0 ){
+        $(`#o${beat}`).addClass('active');
+        $(`#o7`).removeClass('active');
+      } else {
+        $(`#o${beat}`).addClass('active');
+        $(`#o${lastBeat}`).removeClass('active');
+      }
+
       // increment if not at the last beat in the measure, start over at the end of the measure:
       beat < 7 ? ( beat++ ) : ( beat = 0 ) ;
     };
@@ -145,18 +154,22 @@ var makePitch = function(note) {
   };
 };
 
+////////////
+// jQuery //
+////////////
 
 $(function(){
   const CNTXT = new AudioContext(); // This creates the space in which all audio occurs
 
+  // Allows you to call thse notes as functions to generate the octave:
   var c = makePitch(32.70325), db = makePitch(34.647875), d = makePitch(36.708125), eb = makePitch(38.890875), e = makePitch(41.2035),
       f = makePitch(43.6535), gb = makePitch(46.24925), g = makePitch(48.999375), ab = makePitch(51.913125), a = makePitch(55),
-      bb = makePitch(58.2705), b = makePitch(61.735375);
+      bb = makePitch(58.2705), b = makePitch(61.735375), x = makePitch(0);
 
   // The notes in the measure:
-  var pattern = [ c(4), b(4), a(3), c(3), c(4), b(3), g(3), b(3) ];
-  console.log(pattern);
-  let bpm = 90; // Set beats per minute (calculated to milliseconds within Loop object)
+  var pattern = [ x(0), x(0), x(0), x(0), x(0), x(0), x(0), x(0) ];
+
+  var bpm = 90; // Set beats per minute (calculated to milliseconds within Loop object)
 
   $(".note").click(function(){
     let noteData = $(this).attr('data-note');
@@ -173,8 +186,10 @@ $(function(){
     let beatData = $(this).attr('data-column');
     let octId = `o${beatData}`;
     let octCount = parseInt($(`#${octId}`).text());
-    let newCount = (octCount + 1);
-    $(`#${octId}`).text(newCount);
+    if (octCount < 8 ){
+      let newCount = (octCount + 1);
+      $(`#${octId}`).text(newCount);
+    }
   });
 
   $("button.octave-down").click(function(){
