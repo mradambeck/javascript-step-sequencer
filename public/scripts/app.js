@@ -119,12 +119,11 @@ class Loop {
       beat < 7 ? ( beat++ ) : ( beat = 0 );
     };
 
-
-
-    var tempo = (1000 * 60 / bpm / 2);
+    this.tempo = (1000 * 60 / bpm / 2);
+    var tempo = this.tempo;
 
     var playNoteInPattern = function(pattern, this_cntxt){
-      setInterval( traverseMeasure.bind(null, pattern, this_cntxt), tempo); // set timing TODO: create BPM
+      setInterval( traverseMeasure.bind(null, pattern, this_cntxt), tempo);
     };
 
     playNoteInPattern(pattern, this.cntxt);
@@ -159,7 +158,7 @@ var makePitch = function(note) {
 ////////////
 
 $(function(){
-  const CNTXT = new AudioContext(); // This creates the space in which all audio occurs
+  const CNTXT = new window.AudioContext() || window.webkitAudioContext(); // This creates the space in which all audio occurs
 
   // Allows you to call thse notes as functions to generate the octave:
   var c = makePitch(32.70325), db = makePitch(34.647875), d = makePitch(36.708125), eb = makePitch(38.890875), e = makePitch(41.2035),
@@ -213,17 +212,17 @@ $(function(){
     loop.play(pattern, bpm);
 
     $("#bpm").change(function() {
-
-      let bpm = $('#bpm').val();
-
-      console.log(loop.play.tempo);
-
+      let beatsPer = $('#bpm').val();
+      loop.tempo = (1000 * 60 / beatsPer / 2);
+      console.log(loop.tempo);
+      console.log(beatsPer);
     });
 
   });
 
   $("#bpm").change(function() {
     bpm = $('#bpm').val();
+
   });
 
 });
