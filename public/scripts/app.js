@@ -36,7 +36,7 @@ class FilterBank {
     let detune = configFx.detune || 1000;
     let q = configFx.q || 20;
     let connection = configFx.connection || amplifier.input;
-    let delayValue = configFx.delayValue || 0.2;
+    let delayValue = configFx.delayValue || 0.1;
 
     // Biquad Filter
     let bq = this.biquadFilter = the_context.createBiquadFilter();
@@ -104,19 +104,26 @@ class Loop {
     var traverseMeasure = function(pattern, this_cntxt){
       let freq = pattern[beat]; // play the appropriate note in the measure
       let note = new NoiseMaker(freq, 0.5, 'triangle', this_cntxt);
-
+      let lastBeat = beat - 1;
       note.sound();
 
-      // increment if not at the last beat in the measure, start over at the end of the measure:
-      beat < 7 ? ( beat++ ) : ( beat = 0 ) ;
+      if ( beat === 0 ){
+        $(`#o${beat}`).addClass('active');
+        $(`#o7`).removeClass('active');
+      } else {
+        $(`#o${beat}`).addClass('active');
+        $(`#o${lastBeat}`).removeClass('active');
+      }
 
+      // increment if not at the last beat in the measure, start over at the end of the measure:
+      beat < 7 ? ( beat++ ) : ( beat = 0 );
     };
 
-
-    var tempo = (1000 * 60 / bpm / 2);
+    this.tempo = (1000 * 60 / bpm / 2);
+    var tempo = this.tempo;
 
     var playNoteInPattern = function(pattern, this_cntxt){
-      setInterval( traverseMeasure.bind(null, pattern, this_cntxt), tempo); // set timing TODO: create BPM
+      setInterval( traverseMeasure.bind(null, pattern, this_cntxt), tempo);
     };
 
     playNoteInPattern(pattern, this.cntxt);
@@ -124,44 +131,97 @@ class Loop {
   }
 }
 
-$(function(){
-  const CNTXT = new AudioContext(); // This creates the space in which all audio occurs
+var makePitch = function(note) {
 
-  let makePitch = function(note) {
+  return function(octave) {
+    if (octave === 0){
+      return note / 2;
+    } else if (octave === 1) {
+      return note;
+    } else {
 
-    return function(octave) {
-      if (octave === 0){
-        return note / 2;
-      } else if (octave === 1) {
+      let octaveMaker = function(note, octave){
+        octave = octave - 1;
+        for (i = 0; i < octave; i ++){
+          note = note * 2;
+        }
         return note;
-      } else {
+      };
 
-        let octaveMaker = function(note, octave){
-          octave = octave - 1;
-          for (i = 0; i < octave; i ++){
-            note = note * 2;
-          }
-          return note;
-        };
-
-        return octaveMaker(note, octave);
-      }
-    };
+      return octaveMaker(note, octave);
+    }
   };
+};
 
+////////////
+// jQuery //
+////////////
+
+$(function(){
+  const CNTXT = new window.AudioContext() || window.webkitAudioContext(); // This creates the space in which all audio occurs
+
+  // Allows you to call thse notes as functions to generate the octave:
   var c = makePitch(32.70325), db = makePitch(34.647875), d = makePitch(36.708125), eb = makePitch(38.890875), e = makePitch(41.2035),
       f = makePitch(43.6535), gb = makePitch(46.24925), g = makePitch(48.999375), ab = makePitch(51.913125), a = makePitch(55),
-      bb = makePitch(58.2705), b = makePitch(61.735375);
+      bb = makePitch(58.2705), b = makePitch(61.735375), x = makePitch(0);
 
   // The notes in the measure:
-  let pattern = [ c(4), b(4), a(3), c(3), c(4), b(3), g(3), b(3) ];
-  console.log(pattern);
-  let bpm = 90; // Set beats per minute (calculated to milliseconds within Loop object)
+  var pattern = [ x(0), x(0), x(0), x(0), x(0), x(0), x(0), x(0) ];
+
+  var bpm = $('#bpm').val(); // Set beats per minute (calculated to milliseconds within Loop object)
+
+
+  $(".note").click(function(){
+    let noteData = $(this).attr('data-note');
+    let beatData = parseInt($(this).attr('data-column'));
+    let octCount = parseInt($(`#o${beatData}`).text());
+
+    // TODO: Find a different way of doing this, besides using eval
+    pattern[beatData] = eval(noteData)(octCount);
+
+    $(`button[data-column=${beatData}]`).each(function() {
+      $(this).removeClass('active');
+    });
+
+    $(this).addClass('active');
+  });
+
+  $("button.octave-up").click(function(){
+    let beatData = $(this).attr('data-column');
+    let octId = `o${beatData}`;
+    let octCount = parseInt($(`#${octId}`).text());
+    if (octCount < 8 ){
+      let newCount = (octCount + 1);
+      $(`#${octId}`).text(newCount);
+    }
+  });
+
+  $("button.octave-down").click(function(){
+    let beatData = $(this).attr('data-column');
+    let octId = `o${beatData}`;
+    let octCount = parseInt($(`#${octId}`).text());
+    if (octCount > 0){
+      let newCount = (octCount - 1);
+      $(`#${octId}`).text(newCount);
+    }
+  });
 
   $(".start-loop").click(function(){
 
     var loop = new Loop (CNTXT);
     loop.play(pattern, bpm);
+
+    $("#bpm").change(function() {
+      let beatsPer = $('#bpm').val();
+      loop.tempo = (1000 * 60 / beatsPer / 2);
+      console.log(loop.tempo);
+      console.log(beatsPer);
+    });
+
+  });
+
+  $("#bpm").change(function() {
+    bpm = $('#bpm').val();
 
   });
 
