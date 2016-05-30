@@ -1,0 +1,27 @@
+{
+  "name": "javascript-step-sequencer",
+  "version": "1.0.0",
+  "description": "Step Sequencer using Javascript Audio API",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mradambeck/javascript-step-sequencer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mradambeck/javascript-step-sequencer/issues"
+  },
+  "homepage": "https://github.com/mradambeck/javascript-step-sequencer#readme",
+  "dependencies": {
+    "body-parser": "~1.4.2",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.19"
+  }
+}
