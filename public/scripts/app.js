@@ -36,7 +36,7 @@ class FilterBank {
     let detune = configFx.detune || 1000;
     let q = configFx.q || 20;
     let connection = configFx.connection || amplifier.input;
-    let delayValue = configFx.delayValue || 0.2;
+    let delayValue = configFx.delayValue || 0.1;
 
     // Biquad Filter
     let bq = this.biquadFilter = the_context.createBiquadFilter();
@@ -116,7 +116,7 @@ class Loop {
       }
 
       // increment if not at the last beat in the measure, start over at the end of the measure:
-      beat < 7 ? ( beat++ ) : ( beat = 0 ) ;
+      beat < 7 ? ( beat++ ) : ( beat = 0 );
     };
 
 
@@ -169,7 +169,8 @@ $(function(){
   // The notes in the measure:
   var pattern = [ x(0), x(0), x(0), x(0), x(0), x(0), x(0), x(0) ];
 
-  var bpm = 90; // Set beats per minute (calculated to milliseconds within Loop object)
+  var bpm = $('#bpm').val(); // Set beats per minute (calculated to milliseconds within Loop object)
+
 
   $(".note").click(function(){
     let noteData = $(this).attr('data-note');
@@ -178,6 +179,10 @@ $(function(){
 
     // TODO: Find a different way of doing this, besides using eval
     pattern[beatData] = eval(noteData)(octCount);
+
+    $(`button[data-column=${beatData}]`).each(function() {
+      $(this).removeClass('active');
+    });
 
     $(this).addClass('active');
   });
@@ -207,6 +212,18 @@ $(function(){
     var loop = new Loop (CNTXT);
     loop.play(pattern, bpm);
 
+    $("#bpm").change(function() {
+
+      let bpm = $('#bpm').val();
+
+      console.log(loop.play.tempo);
+
+    });
+
+  });
+
+  $("#bpm").change(function() {
+    bpm = $('#bpm').val();
   });
 
 });

@@ -1,3 +1,7 @@
+/*div {
+  border: 1px dotted grey;
+}*/
+
 .no-left-padding {
   padding-left: 0px;
 }
@@ -6,6 +10,18 @@
   padding-right: 0px;
 }
 
+.range-spacer-top {
+  margin-top: 10px;
+}
+
 .spacer-top {
   margin-top: 20px;
+}
+
+
+@media (min-width: 600px) {
+  .desktop-padding {
+    padding-right: 50px;
+    padding-left: 50px;
+  }
 }
