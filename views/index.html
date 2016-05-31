@@ -11,10 +11,14 @@
 
   <!-- Angular -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.js"></script>
-  <!-- Scripts -->
+  <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 
+  <!-- The good stuff -->
+  <script src="scripts/synth.js"></script>
+  <script src="scripts/note.js"></script>
   <script src="scripts/app.js"></script>
+
 </head>
 <body>
   <div class="container-fluid" ng-controller="GridController as gridCtrl">
@@ -81,8 +85,6 @@
 
           </div>
 
-
-
         </div>
 
 
@@ -95,34 +97,26 @@
 
       </div>
       <!-- <div class = "col-sm-5"> -->
-        <div class = "row spacer-top">
-          <div class = "col-sm-5 desktop-padding">
-            <div class = "row">
-              <span class = "pull-right">My Account | Logout</span>
+      <div class = "row spacer-top">
+        <div class = "col-sm-5 desktop-padding">
+          <div class = "row">
+            <span class = "pull-right">My Account | Logout</span>
+          </div>
+          <div class = "row spacer-top">
+            <div class = "col-xs-3">
+              <h4>BPM</h4>
             </div>
-            <div class = "row spacer-top">
-              <div class = "col-xs-3">
-                <h4>BPM</h4>
-              </div>
-              <div class = "col-xs-9 range-spacer-top">
-                <input type="range" id="bpm" min="30" value="120" max="225" step="1">
-              </div>
+            <div class = "col-xs-9 range-spacer-top">
+              <input type="range" id="bpm" min="30" value="120" max="225" step="1">
             </div>
           </div>
         </div>
       </div>
-
-
-
     </div>
-
 
   </div>
 
-
-
-
-
+</div>
 
 </body>
 </html>
