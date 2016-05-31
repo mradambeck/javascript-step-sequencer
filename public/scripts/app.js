@@ -131,18 +131,11 @@ class Loop {
   }
 }
 
-// DRIVER CODE
-// var note = new Note();
-// note.a(4); // => 440;
-// var pattern = [ note.a(4), note.a(5), note.x(0), note.bb(4), note.c(5), note.x(0), note.g(3), note.x(0) ];
-
 function Note() {
-  // constructor(){
-    this.pitches = {
-      c: 32.70325, db: 34.647875, d: 36.708125, eb: 38.890875, e: 41.2035, f: 43.6535,
-      gb: 46.24925, g: 48.999375, ab: 51.913125, a: 55, bb: 58.2705, b: 61.735375, x: 0
-    }; // x is silence
-  // }
+  this.pitches = {
+    c: 32.70325, db: 34.647875, d: 36.708125, eb: 38.890875, e: 41.2035, f: 43.6535,
+    gb: 46.24925, g: 48.999375, ab: 51.913125, a: 55, bb: 58.2705, b: 61.735375, x: 0
+  }; // x is silence
 
   this.makePitch = function(note) {
     return function(octave) {
@@ -178,15 +171,6 @@ function Note() {
   this.bb = this.makePitch(this.pitches.bb);
   this.b = this.makePitch(this.pitches.b);
   this.x = this.makePitch(this.pitches.x);
-
-  // this.createNotes = function(pitches){
-  //   for (let pitch in pitches){
-  //
-  //     this.pitch = this.makePitch(pitch);
-  //   }
-  // };
-  // this.createNotes(this.pitches);
-
 }
 
 
@@ -198,11 +182,6 @@ function Note() {
 $(function(){
   const CNTXT = new window.AudioContext() || window.webkitAudioContext(); // This creates the space in which all audio occurs
   var note = new Note();
-  // Allows you to call thse notes as functions to generate the octave:
-
-  // var c = makePitch(32.70325), db = makePitch(34.647875), d = makePitch(36.708125), eb = makePitch(38.890875), e = makePitch(41.2035),
-  //     f = makePitch(43.6535), gb = makePitch(46.24925), g = makePitch(48.999375), ab = makePitch(51.913125), a = makePitch(55),
-  //     bb = makePitch(58.2705), b = makePitch(61.735375), x = makePitch(0);
 
   // The notes in the measure:
   var pattern = [ note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0) ];
