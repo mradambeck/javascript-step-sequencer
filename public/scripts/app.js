@@ -197,7 +197,7 @@ function Note() {
 
 $(function(){
   const CNTXT = new window.AudioContext() || window.webkitAudioContext(); // This creates the space in which all audio occurs
-
+  var note = new Note();
   // Allows you to call thse notes as functions to generate the octave:
 
   // var c = makePitch(32.70325), db = makePitch(34.647875), d = makePitch(36.708125), eb = makePitch(38.890875), e = makePitch(41.2035),
@@ -205,16 +205,17 @@ $(function(){
   //     bb = makePitch(58.2705), b = makePitch(61.735375), x = makePitch(0);
 
   // The notes in the measure:
-  var pattern = [ x(0), x(0), x(0), x(0), x(0), x(0), x(0), x(0) ];
+  var pattern = [ note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0) ];
 
   var bpm = $('#bpm').val(); // Set beats per minute (calculated to milliseconds within Loop object)
 
   $(".note").click(function(){
-    let noteData = $(this).attr('data-note');
+    let noteData = 'note.' + ($(this).attr('data-note'));
     let beatData = parseInt($(this).attr('data-column'));
     let octCount = parseInt($(`#o${beatData}`).text());
 
     // TODO: Find a different way of doing this, besides using eval
+
     pattern[beatData] = eval(noteData)(octCount);
 
     $(`button[data-column=${beatData}]`).each(function() {
