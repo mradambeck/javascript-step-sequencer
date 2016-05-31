@@ -1,5 +1,4 @@
 class Synth {
-
   constructor (connection, the_context) {
     this.now = the_context.currentTime;
 
@@ -10,7 +9,6 @@ class Synth {
     volume.gain.value = 0.15;
     volume.connect(connection); // Connect Synth to next path (Filter)
   }
-
 
   playNote (frequency = 440, duration = 0.5, wave = 'triangle') {
     let osc = this.osc;
@@ -25,7 +23,6 @@ class Synth {
     osc.stop(stopTime);
     osc.connect(this.volume); // Connect Oscillator to Volume
   }
-
 }
 
 class FilterBank {
@@ -181,11 +178,8 @@ function Note() {
 
 $(function(){
   const CNTXT = new window.AudioContext() || window.webkitAudioContext(); // This creates the space in which all audio occurs
-  var note = new Note();
-
-  // The notes in the measure:
-  var pattern = [ note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0) ];
-
+  var note = new Note(); // allows you to generate octaves of notes dynamically
+  var pattern = [ note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0) ]; // notes in the measure
   var bpm = $('#bpm').val(); // Set beats per minute (calculated to milliseconds within Loop object)
 
   $(".note").click(function(){
@@ -194,7 +188,6 @@ $(function(){
     let octCount = parseInt($(`#o${beatData}`).text());
 
     // TODO: Find a different way of doing this, besides using eval
-
     pattern[beatData] = eval(noteData)(octCount);
 
     $(`button[data-column=${beatData}]`).each(function() {
@@ -240,7 +233,6 @@ $(function(){
 
   $("#bpm").change(function() {
     bpm = $('#bpm').val();
-
   });
 
 });
