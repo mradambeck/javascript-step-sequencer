@@ -1,10 +1,10 @@
-// Allows you to dynamically generate octaves of base notes.
+// Allows you to dynamically generate octaves of base notes by calling Note.pitch(octave);
 
 function Note() {
   this.pitches = {
     c: 32.70325, db: 34.647875, d: 36.708125, eb: 38.890875, e: 41.2035, f: 43.6535,
-    gb: 46.24925, g: 48.999375, ab: 51.913125, a: 55, bb: 58.2705, b: 61.735375, x: 0
-  }; // x is silence
+    gb: 46.24925, g: 48.999375, ab: 51.913125, a: 55, bb: 58.2705, b: 61.735375, x: 0 // x is silence
+  };
 
   this.makePitch = function(note) {
     return function(octave) {
@@ -27,6 +27,7 @@ function Note() {
     };
   };
 
+  // Not a big fan of this, but there's no way to dynamically name functions...
   this.c = this.makePitch(this.pitches.c);
   this.db = this.makePitch(this.pitches.db);
   this.d = this.makePitch(this.pitches.d);
