@@ -65,9 +65,6 @@ app.use(express.static(__dirname + '/public'));
 
 var note = new Note();
 
-// var pattern = { notes: [ note.c(4), note.x(0), note.d(4), note.x(0), note.c(4), note.x(0), note.d(4), note.x(0) ],
-//                 names: ['c(4)', 'x(0)', 'd(4)', 'x(0)', 'c(4)', 'x(0)', 'd(4)', 'x(0)']};
-
 ////////////
 // ROUTES //
 ////////////
@@ -84,6 +81,7 @@ app.get('/', function homepage(req, res) {
 // Songs
 app.get     ('/api/songs',                    controllers.songs.index);
 app.get     ('/api/users/:userId/songs/:id',  controllers.songs.show);
+app.get     ('/api/users/:userId/songs',      controllers.songs.firstSong);
 app.post    ('/api/users/:userId/songs',      controllers.songs.createSong);
 app.put     ('/api/users/:userId/songs/:id',  controllers.songs.updateSong);
 app.delete  ('/api/users/:userId/songs/:id',  controllers.songs.deleteSong);

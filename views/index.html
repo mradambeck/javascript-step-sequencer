@@ -110,10 +110,43 @@
       <div class = "row spacer-top">
         <div class = "col-sm-5 desktop-padding">
           <div class = "row">
-            <span class = "pull-right">My Account | Sign-Up | Logout</span>
+            <span class = "pull-right"><a href="#" data-toggle="modal" data-target="#signup-modal">Sign-Up</a> | Logout</span>
+            <div class="modal fade" tabindex="-1" role="dialog" id="signup-modal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">create your account</h4>
+                  </div>
+                  <div class="modal-body form-block">
+
+                    <form id="newuser-form" action="api/users" method="post">
+                      <div class="form-group">
+                        <label for="name">username</label>
+                        <input name="username" type="text" class="form-control" id="username" placeholder:="eg: supercoolperson" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="email">email</label>
+                        <input name="email" type="email" class="form-control" id="email" placeholder="eg: supercoolperson@example.com" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="password">password</label>
+                        <input name="password" type="password" class="form-control" id="password" placeholder="enter your password" required>
+                        <input name="songs" type="hidden" id="songs">
+                      </div>
+
+                      <div class ="form-group">
+                        <button type="submit" class="btn btn-success">Let's do this</button>
+                      </div>
+                    </form>
+
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
           </div>
 
-          <ng-view></ng-view>
+
           <div class = "row spacer-top">
             <div class = "col-xs-3">
               <h4>BPM</h4>

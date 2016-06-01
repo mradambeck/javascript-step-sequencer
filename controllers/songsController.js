@@ -22,6 +22,18 @@ function show (req, res){
   });
 }
 
+function firstSong (req, res){
+  // console.log("I am a callback");
+  // res.sendStatus(418);
+  db.User.findOne({_id: req.params.userId}, function (err, foundUser){
+    if (err) {
+      console.error ('songsController, firstSong err: ', err);
+      return res.status(404).send({ error: err });
+    }
+    var firstSong = foundUser.songs;
+    res.json(firstSong);
+  });
+}
 
 // SAVE one song
 function createSong (req, res){
@@ -87,6 +99,7 @@ function deleteSong (req, res) {
 module.exports = {
   index: index,
   show: show,
+  firstSong: firstSong,
   createSong: createSong,
   updateSong: updateSong,
   deleteSong: deleteSong

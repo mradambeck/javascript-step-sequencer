@@ -40,7 +40,7 @@ function createUser (req, res){
         res.status(500).send({ message: err.message });
       }
       // res.send({ token: auth.createJWT(result) });
-      res.send(newUser);
+      res.redirect('/users/', result.id);
     });
   });
 
