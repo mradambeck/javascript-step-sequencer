@@ -2,13 +2,13 @@
 // SERVER SIDE JS //
 ////////////////////
 
-// require express and other modules
+// get me all the things
 var express = require('express'),
     app = express(),
-    bodyParser = require('body-parser');
-
-// connect to db models
-var db = require('./models');
+    bodyParser = require('body-parser'),
+    controllers = require('./controllers'),
+    db = require('./models')
+;
 
 // configure bodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -72,22 +72,25 @@ var note = new Note();
 // ROUTES //
 ////////////
 
-// HTML Endpoints
+//// HTML Endpoints ////
 
 app.get('/', function homepage(req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
 
 
-// JSON Endpoints
+//// JSON Endpoints ////
 
-app.get('/api/songs', function (req, res) {
-  db.Song.find(function(err, songs){
-    if (err) { return console.log("index error: " + err); }
-    res.json(songs);
-  });
-});
+// Songs
+app.get     ('/api/songs',                    controllers.songs.index);
+app.get     ('/api/users/:userId/songs/:id',  controllers.songs.show);
+app.post    ('/api/users/:userId/songs',      controllers.songs.createSong);
+app.put     ('/api/users/:userId/songs/:id',  controllers.songs.updateSong);
+app.delete  ('/api/users/:userId/songs/:id',  controllers.songs.deleteSong);
 
+// Users
+app.get     ('/api/users',                    controllers.users.index);
+app.post    ('/api/users',                    controllers.users.createUser);
 
 ////////////
 // SERVER //

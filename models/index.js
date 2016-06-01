@@ -8,3 +8,4 @@ mongoose.connect(
 // import models:
 
 module.exports.Song = require("./song.js");
+module.exports.User = require("./user.js");
