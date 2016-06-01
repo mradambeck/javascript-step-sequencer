@@ -6,17 +6,18 @@ angular
 // Angular controller //
 ////////////////////////
 
+// Used to create the note grid in the browser:
 function GridController () {
   var vm = this;
   let note = new Note();
   pitchArray = ['b','bb','a','ab','g','gb','f','e','eb','d','db','c'];
+
   vm.gridL = [
     { name: "0", pitches: pitchArray },
     { name: "1", pitches: pitchArray },
     { name: "2", pitches: pitchArray },
     { name: "3", pitches: pitchArray }
   ];
-
   vm.gridR = [
     { name: "4", pitches: pitchArray },
     { name: "5", pitches: pitchArray },
@@ -37,11 +38,11 @@ $(function(){
   var pattern = [ note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0) ]; // notes in the measure
   var bpm = $('#bpm').val(); // Set beats per minute (calculated to milliseconds within Loop object)
 
-
+  // Selecting notes
   $(".note").click(function(){
     let noteData = 'note.' + ($(this).attr('data-note'));
     let beatData = parseInt($(this).attr('data-column'));
-    let octCount = parseInt($(`#o${beatData}`).text());    
+    let octCount = parseInt($(`#o${beatData}`).text());
     pattern[beatData] = eval(noteData)(octCount); // TODO: Find a different way of doing this, besides using eval
 
     $(`button[data-column=${beatData}]`).each(function() {
@@ -51,7 +52,7 @@ $(function(){
     $(this).addClass('active');
   });
 
-
+  // Changing Octaves
   $("button.octave-up").click(function(){
     let beatData = $(this).attr('data-column');
     let octId = `o${beatData}`;
@@ -71,7 +72,7 @@ $(function(){
     }
   });
 
-
+  // Starting the Loop
   $(".start-loop").click(function(){
     var loop = new Loop (CNTXT);
     loop.play(pattern, bpm);
@@ -85,7 +86,7 @@ $(function(){
 
   });
 
-
+  // Changing BPM
   $("#bpm").change(function() {
     bpm = $('#bpm').val();
   });
