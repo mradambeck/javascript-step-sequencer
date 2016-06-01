@@ -35,7 +35,25 @@ $(function(){
   const CNTXT = new window.AudioContext() || window.webkitAudioContext(); // This creates the space in which all audio occurs
 
   var note = new Note(); // allows you to generate octaves of notes dynamically
+
   var pattern = [ note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0) ]; // notes in the measure
+
+  $.ajax({
+    method: 'GET',
+    url: '/api/songs',
+    success: handleSuccess,
+    error: handleError
+  });
+
+  function handleSuccess(json) {
+    pattern = json[0].pattern;
+    console.log(json[0]);
+  }
+
+  function handleError(xhr, status, errorThrown) {
+    console.log(xhr, status, errorThrown);
+  }
+
   var bpm = $('#bpm').val(); // Set beats per minute (calculated to milliseconds within Loop object)
 
   // Selecting notes
