@@ -32,7 +32,7 @@ function createSong (req, res){
   var newSong = new Song(req.body.song);
 
   // find user in db by id and add new song
-  User.findOne({_id: userId}, function (err, foundUser) {
+  db.User.findOne({_id: userId}, function (err, foundUser) {
     foundUser.songs.push(newSong);
     foundUser.save(function (err, savedUser) {
       res.json(newSong);
@@ -48,7 +48,7 @@ function updateSong (req, res) {
   var songId = req.params.id;
 
   // find user in db by id
-  User.findOne({_id: userId}, function (err, foundUser) {
+  db.User.findOne({_id: userId}, function (err, foundUser) {
     // find song embedded in user
     var foundSong = foundUser.songs.id(songId);
     // update song text and completed with data from request body
@@ -70,7 +70,7 @@ function deleteSong (req, res) {
   var songId = req.params.id;
 
   // find user in db by id
-  User.findOne({_id: userId}, function (err, foundUser) {
+  db.User.findOne({_id: userId}, function (err, foundUser) {
     // find song embedded in user
     var foundSong = foundUser.songs.id(songId);
     // remove song

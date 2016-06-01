@@ -4,9 +4,10 @@ var Schema = mongoose.Schema;
 var Song = require('./song');
 
 var UserSchema = new Schema({
-  first_name: String,
-  last_name: String,
-  password: String,
+  created: { type: Date, default: Date.now },
+  username: String,
+  email: { type: String, unique: true, lowercase: true },
+  password: { type: String, select: false },
   songs: [ Song.schema ]
 });
 

@@ -16,26 +16,34 @@ function index (req, res){
 
 function createUser (req, res){
 
-  var newSong = new db.Song({
+  var songArray = [];
+  var defaultSong = new db.Song({
     title: "New Song",
     pattern: [ 0, 0, 0, 0, 0, 0, 0, 0 ],
     notes: [ 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)' ]
   });
 
-  var newUser = new db.User({
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    password: req.body.pasword,
-    songs: newSong
+  songArray.push(defaultSong);
+
+  db.User.findOne({ email: req.body.email }, function (err, existingUser) {
+    if (existingUser) {
+      return res.status(409).send({ message: 'Email is already taken, try logging in' });
+    }
+    var newUser = new db.User({
+      username: req.body.username,
+      email: req.body.email,
+      password: req.body.password,
+      songs: songArray
+    });
+    newUser.save(function (err, result) {
+      if (err) {
+        res.status(500).send({ message: err.message });
+      }
+      // res.send({ token: auth.createJWT(result) });
+      res.send(newUser);
+    });
   });
 
-  newUser.save(function handleSave(err, data){
-    if (err){
-      console.error('handleSave err: ', err);
-      return res.status(400).send({error: err});
-    }
-    res.redirect('/users/' + data._id);
-  });  
 }
 
 
