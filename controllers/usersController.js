@@ -29,17 +29,17 @@ function createUser (req, res){
   });
 
   var songArray = [];
-  var defaultSong = new Song({
+  var defaultSong = new Song ({
     title: "New Song",
-    pattern: [ 0, 0, 0, 0, 0, 0, 0, 0 ],
-    notes: [ 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)' ]
+    pattern: [554.366, 0, 369.994, 587.33, 277.183, 369.994, 0, 277.183],
+    notes: [ 'db(5)', 'x(0)', 'gb(4)', 'd(5)', 'db(4)', 'gb(4)', 'x(0)', 'db(4)' ]
   });
   songArray.push(defaultSong);
 
   User.register(new User({
       username: req.body.username,
       email: req.body.email,
-      songs: []
+      songs: songArray
     }), req.body.password,
     function (err, newUser) {
       if (err){
@@ -48,7 +48,7 @@ function createUser (req, res){
       }
       console.log('created user: ', newUser);
       passport.authenticate('local')(req, res, function() {
-        res.redirect('/');
+        res.redirect('/users/' + newUser.id);
       });
     }
   );
@@ -57,8 +57,7 @@ function createUser (req, res){
 
 function login(req, res) {
   console.log('logged in: ', req.user);
-  res.redirect('/');
-
+  res.redirect('/users/' + req.user.id);
 }
 
 function logout(req, res) {

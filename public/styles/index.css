@@ -2,12 +2,20 @@
   border: 1px dotted grey;
 }*/
 
+.display-none {
+  display: none !important;
+}
+
 .no-left-padding {
   padding-left: 0px;
 }
 
 .no-right-padding {
   padding-right: 0px;
+}
+
+.margin-right {
+  margin-right: 13px;
 }
 
 .range-spacer-top {

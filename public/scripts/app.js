@@ -11,37 +11,84 @@ angular
 // jQuery //
 ////////////
 
+var activateGrid = function (arr){
+  for (var i = 0; i < arr.length; i++ ){
+    console.log(arr[i]);
+    let splitNote = arr[i].split('(');
+    let splitNum = splitNote[1].split(')');
+    console.log(splitNum);
+    if (splitNote[0] !== 'x'){
+      $(`button[data-note=${splitNote[0]}][data-column="${i}"]`).addClass('active');
+      $(`button[data-note="x"][data-column="${i}"]`).removeClass('active');
+      $(`button[data-column="${i}"][data-octave="count"]`).text(splitNum[0]);
+    }
+
+
+  }
+};
+
 $(function(){
   const CNTXT = new window.AudioContext() || window.webkitAudioContext(); // This creates the space in which all audio occurs
 
   var note = new Note(); // allows you to generate octaves of notes dynamically
-
   var pattern = [ note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0) ]; // notes in the measure
 
-  $.ajax({
-    method: 'GET',
-    url: '/api/songs',
-    success: handleSuccess,
-    error: handleError
-  });
 
-  function handleSuccess(json) {
+
+  if (window.location.pathname === "/"){
+    $.ajax({
+      method: 'GET',
+      url: '/api/songs',
+      success: handleNoUserSuccess,
+      error: handleNoUserError
+    });
+  } else {
+
+    let path = window.location.pathname;
+    let userId = path.split('/')[2];
+
+    $.ajax({
+      method: 'GET',
+      url: ('/api/users/' + userId + '/songs'),
+      success: handleUserSuccess,
+      error: handleUserError
+    });
+  }
+
+  function handleUserSuccess(json) {
     pattern = json[0].pattern;
+    console.log(json[0].pattern);
+    activateGrid(json[0].notes);
+  }
+
+  function handleUserError(xhr, status, errorThrown) {
+    console.log(xhr, status, errorThrown);
+  }
+
+  function handleNoUserSuccess(json) {
+    // pattern = json[0].pattern;
     // console.log(json[0]);
   }
 
-  function handleError(xhr, status, errorThrown) {
+  function handleNoUserError(xhr, status, errorThrown) {
     console.log(xhr, status, errorThrown);
   }
+
 
   var bpm = $('#bpm').val(); // Set beats per minute (calculated to milliseconds within Loop object)
 
   // Selecting notes
   $(".note").click(function(){
     let noteData = 'note.' + ($(this).attr('data-note'));
+    console.log('noteData: ',noteData);
     let beatData = parseInt($(this).attr('data-column'));
+    console.log('beatData: ',beatData);
     let octCount = parseInt($(`#o${beatData}`).text());
-    pattern[beatData] = eval(noteData)(octCount); // TODO: Find a different way of doing this, besides using eval
+    console.log('octCount: ',octCount);
+    // TODO: Find a way of doing this without using eval
+    pattern[beatData] = eval(noteData)(octCount);
+
+    console.log(pattern);
 
     $(`button[data-column=${beatData}]`).each(function() {
       $(this).removeClass('active');

@@ -95,6 +95,9 @@ var note = new Note();
 app.get('/', function homepage(req, res) {
   res.sendFile(__dirname + '/views/index.html', { user: JSON.stringify(req.user) + " || null" });
 });
+app.get('/users/:userId', function homepage(req, res) {
+  res.sendFile(__dirname + '/views/user.html', { user: JSON.stringify(req.user) + " || null" });
+});
 
 
 //// JSON Endpoints ////
