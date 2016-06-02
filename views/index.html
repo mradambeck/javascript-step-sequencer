@@ -24,6 +24,10 @@
   <!-- Controllers -->
   <script src="/scripts/controllers/GridController.js"></script>
 
+  <!-- Passport User -->
+  <script type="text/javascript">
+    window.user = user;
+  </script>
 
 </head>
 <body>
@@ -110,7 +114,10 @@
       <div class = "row spacer-top">
         <div class = "col-sm-5 desktop-padding">
           <div class = "row">
-            <span class = "pull-right"><a href="#" data-toggle="modal" data-target="#signup-modal">Sign-Up</a> | Logout</span>
+            <span class = "pull-right"><a href="#" data-toggle="modal" data-target="#signup-modal">Sign-Up</a> | <a href="#" data-toggle="modal" data-target="#login-modal">Log-in</a> | <a href="/logout">Logout</a></span>
+
+
+            <!-- SIGN UP MODAL -->
             <div class="modal fade" tabindex="-1" role="dialog" id="signup-modal">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -120,7 +127,7 @@
                   </div>
                   <div class="modal-body form-block">
 
-                    <form id="newuser-form" action="api/users" method="post">
+                    <form id="newuser-form" action="/signup" method="POST">
                       <div class="form-group">
                         <label for="name">username</label>
                         <input name="username" type="text" class="form-control" id="username" placeholder:="eg: supercoolperson" required>
@@ -132,7 +139,6 @@
                       <div class="form-group">
                         <label for="password">password</label>
                         <input name="password" type="password" class="form-control" id="password" placeholder="enter your password" required>
-                        <input name="songs" type="hidden" id="songs">
                       </div>
 
                       <div class ="form-group">
@@ -144,6 +150,38 @@
                 </div><!-- /.modal-content -->
               </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
+
+            <!-- LOGIN MODAL -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="login-modal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">login</h4>
+                  </div>
+                  <div class="modal-body form-block">
+
+                    <form id="login-form" action="/login" method="POST">
+                      <div class="form-group">
+                        <label for="username">username</label>
+                        <input name="username" type="text" class="form-control" id="username" placeholder="eg: supercoolperson" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="password">password</label>
+                        <input name="password" type="password" class="form-control" id="password" placeholder="enter your password" required>
+                      </div>
+
+                      <div class ="form-group">
+                        <button type="submit" class="btn btn-success">Time for tunes</button>
+                      </div>
+                    </form>
+
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+
           </div>
 
 

@@ -6,12 +6,33 @@
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
+    mongoose = require('mongoose'),
+    cookieParser = require('cookie-parser'),
+    session = require('express-session'),
+    passport = require('passport'),
+    LocalStrategy = require('passport-local').Strategy,
     controllers = require('./controllers'),
-    db = require('./models')
+    db = require('./models'),
+    Song = db.Song,
+    User = db.User
 ;
 
 // configure bodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
+// middleware for auth
+app.use(cookieParser());
+app.use(session({
+  secret: 'ornamenttopochicoscrabble',
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// passport config
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // serve static files from public folder
 app.use(express.static(__dirname + '/public'));
@@ -72,7 +93,7 @@ var note = new Note();
 //// HTML Endpoints ////
 
 app.get('/', function homepage(req, res) {
-  res.sendFile(__dirname + '/views/index.html');
+  res.sendFile(__dirname + '/views/index.html', { user: JSON.stringify(req.user) + " || null" });
 });
 
 
@@ -88,7 +109,10 @@ app.delete  ('/api/users/:userId/songs/:id',  controllers.songs.deleteSong);
 
 // Users
 app.get     ('/api/users',                    controllers.users.index);
-app.post    ('/api/users',                    controllers.users.createUser);
+app.post    ('/signup',                       controllers.users.createUser);
+app.get     ('/logout',                       controllers.users.logout);
+
+app.post    ('/login', passport.authenticate('local'), controllers.users.login);
 
 ////////////
 // SERVER //

@@ -37,6 +37,9 @@ function firstSong (req, res){
 
 // SAVE one song
 function createSong (req, res){
+  if (!req.user) {
+    res.sendStatus(401);
+  }
   // set the value of the user id
   var userId = req.params.userId;
 
@@ -55,6 +58,10 @@ function createSong (req, res){
 
 // UPDATE a song
 function updateSong (req, res) {
+  if (!req.user) {
+    res.sendStatus(401);
+  }
+
   // set the value of the user and song ids
   var userId = req.params.userId;
   var songId = req.params.id;
@@ -76,6 +83,10 @@ function updateSong (req, res) {
 
 // DELETE a users song
 function deleteSong (req, res) {
+
+  if (!req.user) {
+    res.sendStatus(401);
+  }
 
   // set the value of the user and song ids
   var userId = req.params.userId;

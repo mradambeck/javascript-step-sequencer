@@ -1,6 +1,6 @@
 // song.js
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 
 var SongSchema = new Schema({
   title: String,

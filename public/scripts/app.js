@@ -4,7 +4,7 @@
 
 angular
   .module('jsSynth', []);
-}
+
 
 
 ////////////
@@ -27,7 +27,7 @@ $(function(){
 
   function handleSuccess(json) {
     pattern = json[0].pattern;
-    console.log(json[0]);
+    // console.log(json[0]);
   }
 
   function handleError(xhr, status, errorThrown) {

@@ -1,7 +1,8 @@
 // user.js
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var Song = require('./song');
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    passportLocalMongoose = require('passport-local-mongoose'),
+    Song = require('./song');
 
 var UserSchema = new Schema({
   created: { type: Date, default: Date.now },
@@ -11,6 +12,7 @@ var UserSchema = new Schema({
   songs: [ Song.schema ]
 });
 
-var User = mongoose.model('User', UserSchema);
+UserSchema.plugin(passportLocalMongoose);
 
+var User = mongoose.model('User', UserSchema);
 module.exports = User;
