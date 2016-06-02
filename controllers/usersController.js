@@ -18,7 +18,17 @@ function index (req, res){
   });
 }
 
+// GET One user
 
+function show (req, res){
+  db.User.findOne({_id: req.params.userId}, function(err, user){
+    if (err) {
+      res.status(400).send({error: err});
+      console.error("index error: " + err);
+    }
+    res.json(user);
+  });
+}
 
 function createUser (req, res){
 
@@ -28,18 +38,21 @@ function createUser (req, res){
     }
   });
 
+  var patternArray = req.body.pattern.split(',');
+  var noteArray = req.body.notes.split(',');
+
   var songArray = [];
-  var defaultSong = new Song({
-    title: "New Song",
-    pattern: [ 0, 0, 0, 0, 0, 0, 0, 0 ],
-    notes: [ 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)' ]
+  var firstSong = new Song ({
+    title: "First Song",
+    pattern: patternArray,
+    notes: noteArray
   });
-  songArray.push(defaultSong);
+  songArray.push(firstSong);
 
   User.register(new User({
       username: req.body.username,
       email: req.body.email,
-      songs: []
+      songs: songArray
     }), req.body.password,
     function (err, newUser) {
       if (err){
@@ -48,7 +61,7 @@ function createUser (req, res){
       }
       console.log('created user: ', newUser);
       passport.authenticate('local')(req, res, function() {
-        res.redirect('/');
+        res.redirect('/users/' + newUser.id);
       });
     }
   );
@@ -57,8 +70,7 @@ function createUser (req, res){
 
 function login(req, res) {
   console.log('logged in: ', req.user);
-  res.redirect('/');
-
+  res.redirect('/users/' + req.user.id);
 }
 
 function logout(req, res) {
@@ -74,5 +86,6 @@ module.exports = {
   index: index,
   createUser: createUser,
   login: login,
-  logout: logout
+  logout: logout,
+  show: show
 };

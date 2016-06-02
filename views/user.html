@@ -7,7 +7,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="styles/index.css">
+  <link rel="stylesheet" type="text/css" href="../styles/index.css">
 
   <!-- Angular -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.js"></script>
@@ -17,12 +17,12 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
   <!-- The good stuff -->
-  <script src="scripts/synth.js"></script>
-  <script src="scripts/note.js"></script>
-  <script src="scripts/app.js"></script>
+  <script src="../scripts/synth.js"></script>
+  <script src="../scripts/note.js"></script>
+  <script src="../scripts/app.js"></script>
 
   <!-- Controllers -->
-  <script src="/scripts/controllers/GridController.js"></script>
+  <script src="../scripts/controllers/GridController.js"></script>
 
   <!-- Passport User -->
   <!-- <script type="text/javascript">
@@ -33,8 +33,8 @@
 <body>
   <div class="container-fluid" ng-controller="GridController as gridCtrl">
     <div class = "row spacer-top margin-right">
-      <span class = "pull-right"><a href="#" data-toggle="modal" data-target="#signup-modal">Sign-Up</a> | <a href="#" data-toggle="modal" data-target="#login-modal">Log-in</a></span>
-
+      <!-- <span class = "pull-right"><a href="#" data-toggle="modal" data-target="#my-songs-modal">My Songs</a> | <a href="/logout">Logout</a></span> -->
+      <span class = "pull-right"><span class = "username"></span> | <a href="/logout">Logout</a></span>
     </div>
 
     <div class = "row">
@@ -119,72 +119,42 @@
         <div class = "col-sm-5 desktop-padding">
           <div class = "row">
 
-            <!-- SIGN UP MODAL -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="signup-modal">
+            <!-- SONG MODAL -->
+            <!-- <div class="modal fade" tabindex="-1" role="dialog" id="my-songs-modal">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">create your account</h4>
+                    <h4 class="modal-title"><span class="username"></span>'s songs</h4>
                   </div>
                   <div class="modal-body form-block">
+                    <div class = "row">
+                      <div class = "col-xs-10 col-xs-offset-1">
+                        <form id="song-form" action="/login" method="POST">
+                          <div class="form-group">
+                            song1 title
+                          </div>
 
-                    <form id="newuser-form" action="/signup" method="POST">
-                      <div class="form-group">
-                        <label for="name">username</label>
-                        <input name="username" type="text" class="form-control" id="username" placeholder:="eg: supercoolperson" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="email">email</label>
-                        <input name="email" type="email" class="form-control" id="email" placeholder="eg: supercoolperson@example.com" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="password">password</label>
-                        <input name="password" type="password" class="form-control" id="password" placeholder="enter your password" required>
-                      </div>
+                          <div class ="form-group">
+                            <button type="submit" class="btn btn-success">Load Song</button>
+                          </div>
 
-                        <input name="pattern" type="hidden" id="pattern">
-                        <input name="notes" type="hidden" id="notes">
-
-                      <div class ="form-group">
-                        <button type="submit" class="btn btn-success">Let's do this</button>
+                        </form>
                       </div>
-                    </form>
+                    </div>
+                    <div class = "row">
+                      <hr />
+                    </div>
 
+                    <div class = "row">
+                      <div class = "col-xs-10 col-xs-offset-1">
+                        <button type="submit" class = "btn btn-block btn-primary">Create a New Song</button>
+                      </div>
+                    </div>
                   </div>
-                </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-
-            <!-- LOGIN MODAL -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="login-modal">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">login</h4>
-                  </div>
-                  <div class="modal-body form-block">
-
-                    <form id="login-form" action="/login" method="POST">
-                      <div class="form-group">
-                        <label for="username">username</label>
-                        <input name="username" type="text" class="form-control" id="username" placeholder="eg: supercoolperson" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="password">password</label>
-                        <input name="password" type="password" class="form-control" id="password" placeholder="enter your password" required>
-                      </div>
-
-                      <div class ="form-group">
-                        <button type="submit" class="btn btn-success">Time for tunes</button>
-                      </div>
-                    </form>
-
-                  </div>
-                </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
+                </div>
+              </div>
+            </div> -->
 
 
           </div>
@@ -202,7 +172,7 @@
             <hr />
           </div>
           <div class = "row">
-              <button class="btn btn-primary btn-block" disabled="disabled">Sign Up to Save Settings</button>
+              <button class="btn btn-primary btn-block save-song">Save Settings</button>
           </div>
         </div>
       </div>

@@ -95,20 +95,24 @@ var note = new Note();
 app.get('/', function homepage(req, res) {
   res.sendFile(__dirname + '/views/index.html', { user: JSON.stringify(req.user) + " || null" });
 });
+app.get('/users/:userId', function homepage(req, res) {
+  res.sendFile(__dirname + '/views/user.html', { user: JSON.stringify(req.user) + " || null" });
+});
 
 
 //// JSON Endpoints ////
 
 // Songs
 app.get     ('/api/songs',                    controllers.songs.index);
-app.get     ('/api/users/:userId/songs/:id',  controllers.songs.show);
-app.get     ('/api/users/:userId/songs',      controllers.songs.firstSong);
+app.get     ('/api/songs',                    controllers.songs.index);
+app.get     ('/api/users/:userId/songs',      controllers.songs.allSongs);
 app.post    ('/api/users/:userId/songs',      controllers.songs.createSong);
 app.put     ('/api/users/:userId/songs/:id',  controllers.songs.updateSong);
 app.delete  ('/api/users/:userId/songs/:id',  controllers.songs.deleteSong);
 
 // Users
 app.get     ('/api/users',                    controllers.users.index);
+app.get     ('/api/users/:userId',            controllers.users.show);
 app.post    ('/signup',                       controllers.users.createUser);
 app.get     ('/logout',                       controllers.users.logout);
 

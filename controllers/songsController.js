@@ -22,32 +22,36 @@ function show (req, res){
   });
 }
 
-function firstSong (req, res){
+function allSongs (req, res){
   // console.log("I am a callback");
   // res.sendStatus(418);
-  db.User.findOne({_id: req.params.userId}, function (err, foundUser){
+  db.User.find({_id: req.params.userId}, function (err, foundUser){
     if (err) {
-      console.error ('songsController, firstSong err: ', err);
+      console.error ('songsController, allSongs err: ', err);
       return res.status(404).send({ error: err });
     }
-    var firstSong = foundUser.songs;
-    res.json(firstSong);
+    var songs = foundUser[0].songs;
+    res.json(songs);
+    // res.json({hi: 'there'});
   });
 }
 
 // SAVE one song
 function createSong (req, res){
-  if (!req.user) {
-    res.sendStatus(401);
-  }
+  // if (!req.user) {
+  //   res.sendStatus(401);
+  // }
   // set the value of the user id
   var userId = req.params.userId;
+  console.log(userId);
 
   // store new song in memory with data from request body
-  var newSong = new Song(req.body.song);
+  var newSong = new db.Song(req.body);
+  console.log(newSong);
 
   // find user in db by id and add new song
   db.User.findOne({_id: userId}, function (err, foundUser) {
+    console.log(foundUser);
     foundUser.songs.push(newSong);
     foundUser.save(function (err, savedUser) {
       res.json(newSong);
@@ -110,7 +114,7 @@ function deleteSong (req, res) {
 module.exports = {
   index: index,
   show: show,
-  firstSong: firstSong,
+  allSongs: allSongs,
   createSong: createSong,
   updateSong: updateSong,
   deleteSong: deleteSong
