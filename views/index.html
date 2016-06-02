@@ -13,24 +13,35 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.js"></script>
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
   <!-- The good stuff -->
   <script src="scripts/synth.js"></script>
   <script src="scripts/note.js"></script>
   <script src="scripts/app.js"></script>
 
+  <!-- Controllers -->
+  <script src="/scripts/controllers/GridController.js"></script>
+
+  <!-- Passport User -->
+  <script type="text/javascript">
+    window.user = user;
+  </script>
+
 </head>
 <body>
   <div class="container-fluid" ng-controller="GridController as gridCtrl">
+
     <div class = "row">
 
       <div class = "col-sm-7">
 
 
         <div class = "row spacer-top">
-
           <div class = "col-xs-6 no-right-padding">
 
+            <!-- Angular Grid generation -->
             <div ng-repeat="grid in gridCtrl.gridL">
               <div class = "col-xs-3 col-{{grid.name}}">
 
@@ -54,11 +65,13 @@
 
               </div>
             </div>
+            <!-- End Angular -->
 
           </div>
 
           <div class = "col-xs-6 no-left-padding">
 
+            <!-- Angular Grid Generation -->
             <div ng-repeat="grid in gridCtrl.gridR">
               <div class = "col-xs-3 col-{{grid.name}}">
 
@@ -82,6 +95,7 @@
 
               </div>
             </div>
+            <!-- End Angular -->
 
           </div>
 
@@ -96,12 +110,81 @@
         </div>
 
       </div>
-      <!-- <div class = "col-sm-5"> -->
+
       <div class = "row spacer-top">
         <div class = "col-sm-5 desktop-padding">
           <div class = "row">
-            <span class = "pull-right">My Account | Logout</span>
+            <span class = "pull-right"><a href="#" data-toggle="modal" data-target="#signup-modal">Sign-Up</a> | <a href="#" data-toggle="modal" data-target="#login-modal">Log-in</a> | <a href="/logout">Logout</a></span>
+
+
+            <!-- SIGN UP MODAL -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="signup-modal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">create your account</h4>
+                  </div>
+                  <div class="modal-body form-block">
+
+                    <form id="newuser-form" action="/signup" method="POST">
+                      <div class="form-group">
+                        <label for="name">username</label>
+                        <input name="username" type="text" class="form-control" id="username" placeholder:="eg: supercoolperson" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="email">email</label>
+                        <input name="email" type="email" class="form-control" id="email" placeholder="eg: supercoolperson@example.com" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="password">password</label>
+                        <input name="password" type="password" class="form-control" id="password" placeholder="enter your password" required>
+                      </div>
+
+                      <div class ="form-group">
+                        <button type="submit" class="btn btn-success">Let's do this</button>
+                      </div>
+                    </form>
+
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+            <!-- LOGIN MODAL -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="login-modal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">login</h4>
+                  </div>
+                  <div class="modal-body form-block">
+
+                    <form id="login-form" action="/login" method="POST">
+                      <div class="form-group">
+                        <label for="username">username</label>
+                        <input name="username" type="text" class="form-control" id="username" placeholder="eg: supercoolperson" required>
+                      </div>
+                      <div class="form-group">
+                        <label for="password">password</label>
+                        <input name="password" type="password" class="form-control" id="password" placeholder="enter your password" required>
+                      </div>
+
+                      <div class ="form-group">
+                        <button type="submit" class="btn btn-success">Time for tunes</button>
+                      </div>
+                    </form>
+
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+
           </div>
+
+
           <div class = "row spacer-top">
             <div class = "col-xs-3">
               <h4>BPM</h4>
@@ -114,9 +197,13 @@
       </div>
     </div>
 
+
+
+
+
   </div>
 
-</div>
+
 
 </body>
 </html>

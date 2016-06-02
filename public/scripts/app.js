@@ -1,30 +1,10 @@
+/////////////
+// Angular //
+/////////////
+
 angular
-  .module('jsSynth', [])
-  .controller('GridController', GridController);
+  .module('jsSynth', []);
 
-////////////////////////
-// Angular controller //
-////////////////////////
-
-// Used to create the note grid in the browser:
-function GridController () {
-  var vm = this;
-  let note = new Note();
-  pitchArray = ['b','bb','a','ab','g','gb','f','e','eb','d','db','c'];
-
-  vm.gridL = [
-    { name: "0", pitches: pitchArray },
-    { name: "1", pitches: pitchArray },
-    { name: "2", pitches: pitchArray },
-    { name: "3", pitches: pitchArray }
-  ];
-  vm.gridR = [
-    { name: "4", pitches: pitchArray },
-    { name: "5", pitches: pitchArray },
-    { name: "6", pitches: pitchArray },
-    { name: "7", pitches: pitchArray }
-  ];
-}
 
 
 ////////////
@@ -35,7 +15,25 @@ $(function(){
   const CNTXT = new window.AudioContext() || window.webkitAudioContext(); // This creates the space in which all audio occurs
 
   var note = new Note(); // allows you to generate octaves of notes dynamically
+
   var pattern = [ note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0) ]; // notes in the measure
+
+  $.ajax({
+    method: 'GET',
+    url: '/api/songs',
+    success: handleSuccess,
+    error: handleError
+  });
+
+  function handleSuccess(json) {
+    pattern = json[0].pattern;
+    // console.log(json[0]);
+  }
+
+  function handleError(xhr, status, errorThrown) {
+    console.log(xhr, status, errorThrown);
+  }
+
   var bpm = $('#bpm').val(); // Set beats per minute (calculated to milliseconds within Loop object)
 
   // Selecting notes
