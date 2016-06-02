@@ -18,7 +18,17 @@ function index (req, res){
   });
 }
 
+// GET One user
 
+function show (req, res){
+  db.User.findOne({_id: req.params.userId}, function(err, user){
+    if (err) {
+      res.status(400).send({error: err});
+      console.error("index error: " + err);
+    }
+    res.json(user);
+  });
+}
 
 function createUser (req, res){
 
@@ -28,13 +38,16 @@ function createUser (req, res){
     }
   });
 
+  var patternArray = req.body.pattern.split(',');
+  var noteArray = req.body.notes.split(',');
+
   var songArray = [];
-  var defaultSong = new Song ({
-    title: "New Song",
-    pattern: [554.366, 0, 369.994, 587.33, 277.183, 369.994, 0, 277.183],
-    notes: [ 'db(5)', 'x(0)', 'gb(4)', 'd(5)', 'db(4)', 'gb(4)', 'x(0)', 'db(4)' ]
+  var firstSong = new Song ({
+    title: "First Song",
+    pattern: patternArray,
+    notes: noteArray
   });
-  songArray.push(defaultSong);
+  songArray.push(firstSong);
 
   User.register(new User({
       username: req.body.username,
@@ -73,5 +86,6 @@ module.exports = {
   index: index,
   createUser: createUser,
   login: login,
-  logout: logout
+  logout: logout,
+  show: show
 };

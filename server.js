@@ -104,14 +104,15 @@ app.get('/users/:userId', function homepage(req, res) {
 
 // Songs
 app.get     ('/api/songs',                    controllers.songs.index);
-app.get     ('/api/users/:userId/songs/:id',  controllers.songs.show);
-app.get     ('/api/users/:userId/songs',      controllers.songs.firstSong);
+app.get     ('/api/songs',                    controllers.songs.index);
+app.get     ('/api/users/:userId/songs',      controllers.songs.allSongs);
 app.post    ('/api/users/:userId/songs',      controllers.songs.createSong);
 app.put     ('/api/users/:userId/songs/:id',  controllers.songs.updateSong);
 app.delete  ('/api/users/:userId/songs/:id',  controllers.songs.deleteSong);
 
 // Users
 app.get     ('/api/users',                    controllers.users.index);
+app.get     ('/api/users/:userId',            controllers.users.show);
 app.post    ('/signup',                       controllers.users.createUser);
 app.get     ('/logout',                       controllers.users.logout);
 

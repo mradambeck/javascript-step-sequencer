@@ -11,54 +11,59 @@ angular
 // jQuery //
 ////////////
 
-var activateGrid = function (arr){
-  for (var i = 0; i < arr.length; i++ ){
-    console.log(arr[i]);
-    let splitNote = arr[i].split('(');
-    let splitNum = splitNote[1].split(')');
-    console.log(splitNum);
-    if (splitNote[0] !== 'x'){
-      $(`button[data-note=${splitNote[0]}][data-column="${i}"]`).addClass('active');
-      $(`button[data-note="x"][data-column="${i}"]`).removeClass('active');
-      $(`button[data-column="${i}"][data-octave="count"]`).text(splitNum[0]);
-    }
-
-
-  }
-};
-
 $(function(){
   const CNTXT = new window.AudioContext() || window.webkitAudioContext(); // This creates the space in which all audio occurs
 
   var note = new Note(); // allows you to generate octaves of notes dynamically
   var pattern = [ note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0) ]; // notes in the measure
+  var patternString = [ 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)' ]; // string version (used in recall of pattern)
 
-
+  var userId = '';
 
   if (window.location.pathname === "/"){
-    $.ajax({
-      method: 'GET',
-      url: '/api/songs',
-      success: handleNoUserSuccess,
-      error: handleNoUserError
+    $(".note").click(function(){
+      $('#pattern').val(pattern);
+      $('#notes').val(patternString);
     });
+
+
   } else {
 
     let path = window.location.pathname;
-    let userId = path.split('/')[2];
+    userId = path.split('/')[2];
 
     $.ajax({
       method: 'GET',
-      url: ('/api/users/' + userId + '/songs'),
+      url: ('/api/users/' + userId),
       success: handleUserSuccess,
       error: handleUserError
     });
+
+
   }
 
+  // adds styling to grid to show what notes are active
+  var activateGrid = function (arr){
+    for (var i = 0; i < arr.length; i++ ){
+      let splitNote = arr[i].split('(');
+      let splitNum = splitNote[1].split(')');
+      if (splitNote[0] !== 'x'){
+        $(`button[data-note=${splitNote[0]}][data-column="${i}"]`).addClass('active');
+        $(`button[data-note="x"][data-column="${i}"]`).removeClass('active');
+        $(`button[data-column="${i}"][data-octave="count"]`).text(splitNum[0]);
+      }
+    }
+  };
+
   function handleUserSuccess(json) {
-    pattern = json[0].pattern;
-    console.log(json[0].pattern);
-    activateGrid(json[0].notes);
+    var userSongs = json.songs;
+    console.log('userSongs, pattern: ', userSongs[userSongs.length-1].pattern);
+    console.log('userSongs, notes: ', userSongs[userSongs.length-1].notes);
+    pattern = userSongs[userSongs.length-1].pattern;
+    patternString = userSongs[userSongs.length-1].notes;
+    activateGrid(userSongs[userSongs.length-1].notes);
+    // console.log('user: ', json);
+    $('span.username').html(json.username);
   }
 
   function handleUserError(xhr, status, errorThrown) {
@@ -66,8 +71,7 @@ $(function(){
   }
 
   function handleNoUserSuccess(json) {
-    // pattern = json[0].pattern;
-    // console.log(json[0]);
+
   }
 
   function handleNoUserError(xhr, status, errorThrown) {
@@ -79,22 +83,22 @@ $(function(){
 
   // Selecting notes
   $(".note").click(function(){
-    let noteData = 'note.' + ($(this).attr('data-note'));
-    console.log('noteData: ',noteData);
+    let activeNote = $(this).attr('data-note');
+    let noteData = 'note.' + activeNote;
     let beatData = parseInt($(this).attr('data-column'));
-    console.log('beatData: ',beatData);
     let octCount = parseInt($(`#o${beatData}`).text());
-    console.log('octCount: ',octCount);
+    let stringOfNoteFunction = `${activeNote}(${octCount})`;
+
     // TODO: Find a way of doing this without using eval
     pattern[beatData] = eval(noteData)(octCount);
-
-    console.log(pattern);
+    patternString[beatData] = stringOfNoteFunction;
 
     $(`button[data-column=${beatData}]`).each(function() {
       $(this).removeClass('active');
     });
 
     $(this).addClass('active');
+    console.log(patternString);
   });
 
   // Changing Octaves
@@ -125,10 +129,33 @@ $(function(){
     $("#bpm").change(function() {
       let beatsPer = $('#bpm').val();
       loop.tempo = (1000 * 60 / beatsPer / 2);
-      console.log(loop.tempo);
-      console.log(beatsPer);
     });
 
+  });
+
+  // Save song
+  $("button.save-song").click(function(){
+    let newSong = {
+      title: 'newest song',
+      pattern: pattern,
+      notes: patternString
+    };
+
+    $.ajax({
+      method: "POST",
+      url: "/api/users/" + userId + "/songs",
+      data: newSong,
+      dataType: "json",
+      success: submitSongSuccess,
+      error: submitSongError
+    });
+
+    var submitSongSuccess = function(){
+      console.log('yay');
+    };
+    var submitSongError = function(){
+      console.error('boo');
+    };
   });
 
   // Changing BPM
