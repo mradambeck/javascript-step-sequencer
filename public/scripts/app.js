@@ -21,7 +21,7 @@ $(function(){
   if (window.location.pathname === "/"){
     $('#pattern').val(pattern);
     $('#notes').val(patternString);
-    
+
     $(".note").click(function(){
       $('#pattern').val(pattern);
       $('#notes').val(patternString);
@@ -87,10 +87,6 @@ $(function(){
     });
 
     $(this).addClass('active');
-  });
-
-  $('button.stop-loop').click(function(){
-
   });
 
   var grabNoteOnOctaveClick = function(beatData, math){
