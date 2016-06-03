@@ -21,7 +21,7 @@ $(function(){
   if (window.location.pathname === "/"){
     $('#pattern').val(pattern);
     $('#notes').val(patternString);
-    
+
     $(".note").click(function(){
       $('#pattern').val(pattern);
       $('#notes').val(patternString);
@@ -89,10 +89,6 @@ $(function(){
     $(this).addClass('active');
   });
 
-  $('button.stop-loop').click(function(){
-
-  });
-
   var grabNoteOnOctaveClick = function(beatData, math){
     let activeNote = $(`button[data-column="${beatData}"].active`).attr('data-note');
     let noteData = 'note.' + activeNote;
@@ -147,9 +143,9 @@ $(function(){
 
     // Stopping the Loop
     $(".stop-loop").click(function(){
+      $(".octave-count").removeClass("active");
 
       loop.stop();
-
     });
 
   });
