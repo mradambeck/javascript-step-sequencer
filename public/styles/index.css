@@ -1,5 +1,6 @@
 body {
-  background-image: url("../images/new_year_background.png"); }
+  background-image: url("../images/new_year_background.png");
+  font-family: "Open Sans", sans-serif; }
 
 button {
   border-radius: 0 !important;
@@ -18,7 +19,8 @@ a:hover {
 
 .logo {
   font-size: 16px !important;
-  font-weight: 600 !important; }
+  font-weight: 600 !important;
+  font-family: "Comfortaa", sans-serif; }
 
 .modal-content {
   border-radius: 0; }
@@ -26,7 +28,8 @@ a:hover {
 .settings-panel {
   background-color: rgba(255, 255, 255, 0.75);
   padding-top: 30px;
-  padding-bottom: 30px; }
+  padding-bottom: 30px;
+  font-weight: 700; }
 
 .spacer-header {
   background-color: rgba(255, 255, 255, 0.65);
@@ -47,10 +50,16 @@ a:hover {
   margin-right: 13px; }
 
 .range-spacer-top {
-  margin-top: 10px; }
+  margin-top: 25px; }
 
 .spacer-top {
   margin-top: 20px; }
+
+h3 {
+  font-weight: 500; }
+
+.frown {
+  text-align: center; }
 
 @media (min-width: 600px) {
   .desktop-padding {
