@@ -94,7 +94,6 @@ class Loop {
   constructor(cntxt){
     this.cntxt = cntxt; // main audio context
   }
-
   play(pattern, bpm){
 
     var beat = 0; // Start the measure at the first beat
@@ -120,12 +119,16 @@ class Loop {
 
     this.tempo = (1000 * 60 / bpm / 2);
     var tempo = this.tempo;
+    var interval;
 
     var playNoteInPattern = function(pattern, this_cntxt){
-      setInterval( traverseMeasure.bind(null, pattern, this_cntxt), tempo);
+      interval = setInterval( traverseMeasure.bind(null, pattern, this_cntxt), tempo);
     };
 
     playNoteInPattern(pattern, this.cntxt);
-
+    this.stop = function(){
+      clearInterval(interval);
+    };
   }
+
 }

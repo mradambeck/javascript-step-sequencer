@@ -5,8 +5,6 @@
 angular
   .module('jsSynth', []);
 
-
-
 ////////////
 // jQuery //
 ////////////
@@ -25,10 +23,7 @@ $(function(){
       $('#pattern').val(pattern);
       $('#notes').val(patternString);
     });
-
-
   } else {
-
     let path = window.location.pathname;
     userId = path.split('/')[2];
 
@@ -38,9 +33,7 @@ $(function(){
       success: handleUserSuccess,
       error: handleUserError
     });
-
   }
-
 
   // adds styling to grid to show what notes are active
   var activateGrid = function (arr){
@@ -57,26 +50,21 @@ $(function(){
 
   function handleUserSuccess(json) {
     var userSongs = json.songs;
-    console.log('userSongs, pattern: ', userSongs[userSongs.length-1].pattern);
-    console.log('userSongs, notes: ', userSongs[userSongs.length-1].notes);
     pattern = userSongs[userSongs.length-1].pattern;
     patternString = userSongs[userSongs.length-1].notes;
     activateGrid(userSongs[userSongs.length-1].notes);
     // console.log('user: ', json);
     $('span.username').html(json.username);
   }
-
   function handleUserError(xhr, status, errorThrown) {
-    console.log(xhr, status, errorThrown);
+    console.error(xhr, status, errorThrown);
   }
 
   function handleNoUserSuccess(json) {
   }
-
   function handleNoUserError(xhr, status, errorThrown) {
-    console.log(xhr, status, errorThrown);
+    console.error(xhr, status, errorThrown);
   }
-
 
   // Selecting notes
   $(".note").click(function(){
@@ -95,7 +83,10 @@ $(function(){
     });
 
     $(this).addClass('active');
-    console.log(patternString);
+  });
+
+  $('button.stop-loop').click(function(){
+
   });
 
   var grabNoteOnOctaveClick = function(beatData, math){
@@ -150,7 +141,16 @@ $(function(){
       loop.tempo = (1000 * 60 / beatsPer / 2);
     });
 
+    // Stopping the Loop
+    $(".stop-loop").click(function(){
+
+      loop.stop();
+
+    });
+
   });
+
+
 
   // Save song
   $("button.save-song").click(function(){
