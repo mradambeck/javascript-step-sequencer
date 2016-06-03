@@ -1,0 +1,35 @@
+// div {
+//   border: 1px dotted grey;
+// }
+
+.display-none {
+  display: none !important;
+}
+
+.no-left-padding {
+  padding-left: 0px;
+}
+
+.no-right-padding {
+  padding-right: 0px;
+}
+
+.margin-right {
+  margin-right: 13px;
+}
+
+.range-spacer-top {
+  margin-top: 10px;
+}
+
+.spacer-top {
+  margin-top: 20px;
+}
+
+
+@media (min-width: 600px) {
+  .desktop-padding {
+    padding-right: 50px;
+    padding-left: 50px;
+  }
+}
