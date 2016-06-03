@@ -3,109 +3,23 @@ $openSans: 'Open Sans', sans-serif;
 $comfortaa: 'Comfortaa', sans-serif;
 $bgcolor: #fff;
 
-button {
-  // border-color: transparentize($bgcolor, .9)!important;
-  border: 1px solid transparentize($bgcolor, .9)!important;
-}
-
-.btn {
-  // border-color: transparentize($bgcolor, .9)!important;
-    border: 1px solid transparentize($bgcolor, .9)!important;
-}
-
-@mixin btn($color, $background, $border){
-
-
-  border-radius: 0!important;
-
-  color: $color;
-  background-color: $background;
-
-
-  &:focus,
-  &.focus {
-    color: $color;
-    background-color: darken($background, 10%);
-    // border-color: transparentize($border, .9)!important;
-  }
-  &:hover {
-    color: $color;
-    background-color: darken($background, 10%);
-    // border-color: transparentize($border, .9)!important;
-  }
-  &:active,
-  &.active,
-  .open > &.dropdown-toggle {
-    color: $color;
-    background-color: darken($background, 10%);
-    // border-color: transparentize($border, .9)!important;
-
-    &:hover,
-    &:focus,
-    &.focus {
-      color: $color;
-      background-color: darken($background, 17%);
-      // border-color: transparentize($border, .9)!important;
-    }
-  }
-  &:active,
-  &.active,
-  .open > &.dropdown-toggle {
-    background-image: none;
-  }
-  &.disabled,
-  &[disabled],
-  fieldset[disabled] & {
-    &:hover,
-    &:focus,
-    &.focus {
-      background-color: $background;
-      // border-color: transparentize($border, .9)!important;
-
-    }
-  }
-
-  // .badge {
-  //   color: $background;
-  //   background-color: $color;
-  // }
-}
-
-
-
-
 $greentxt: #fff;
-$greenbg: #53bf6b;
+$greenbg: #2AD99B;
 $greenborder: #fff;
 
 $redtxt: #fff;
-$redbg: red;
+$redbg: #D92A42;
 $redborder: #fff;
 
 $darkbluetxt: #fff;
-$darkbluebg: blue;
+$darkbluebg: #6D7173;
 $darkblueborder: #fff;
 
 $lightbluetxt: #fff;
-$lightbluebg: blue;
+$lightbluebg: #64D8D7;
 $lightblueborder: #fff;
 
 $coolcolor:  #53bf6b;
-
-
-
-.btn-success {
-  @include btn ($greentxt, $greenbg, $greenborder);
-}
-.btn-danger  {
-  @include btn ($redtxt, $redbg, $redborder);
-}
-.btn-primary {
-  @include btn ($darkbluetxt, $darkbluebg, $darkblueborder);
-}
-.btn-info {
-  @include btn ($lightbluetxt, $lightbluebg, $lightblueborder);
-}
 
 
 body {
@@ -113,16 +27,23 @@ body {
   font-family: $openSans;
 }
 
-
-
 button:focus {
   outline:0 !important;
   text-decoration: none;
 }
-a:hover {
-  outline:0 !important;
-  text-decoration: none;
+
+a {
+  color: $lightbluebg;
+  &:hover {
+    color: darken($lightbluebg, 10%);
+    outline:0 !important;
+    text-decoration: none;
+  }
 }
+// a:hover {
+//   outline:0 !important;
+//   text-decoration: none;
+// }
 
 .grid  {
   box-shadow: 3px 3px 4px lighten(grey, 20)!important;
@@ -198,4 +119,80 @@ h3 {
     background-color: transparentize(#fff, .25);
 
   }
+}
+
+@mixin btn($color, $background, $border){
+
+  border: 1px solid transparentize(white, .7)!important;
+
+  border-radius: 0!important;
+
+  color: $color;
+  background-color: $background;
+
+
+  &:focus,
+  &.focus {
+    color: $color;
+    background-color: darken($background, 10%);
+    // border-color: transparentize($border, .9)!important;
+  }
+  &:hover {
+    color: $color;
+    background-color: darken($background, 10%);
+    // border-color: transparentize($border, .9)!important;
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $color;
+    background-color: darken($background, 10%);
+    // border-color: transparentize($border, .9)!important;
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: $color;
+      background-color: darken($background, 17%);
+      // border-color: transparentize($border, .9)!important;
+    }
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    background-image: none;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus,
+    &.focus {
+      background-color: $background;
+      // border-color: transparentize($border, .9)!important;
+
+    }
+  }
+
+  // .badge {
+  //   color: $background;
+  //   background-color: $color;
+  // }
+}
+
+
+.btn-success {
+  @include btn ($greentxt, $greenbg, $greenborder);
+  &[disabled] {
+    background-color: lighten($greenbg, 20);
+  }
+}
+.btn-danger  {
+  @include btn ($redtxt, $redbg, $redborder);
+}
+.btn-primary {
+  @include btn ($darkbluetxt, $darkbluebg, $darkblueborder);
+}
+.btn-info {
+  @include btn ($lightbluetxt, $lightbluebg, $lightblueborder);
 }

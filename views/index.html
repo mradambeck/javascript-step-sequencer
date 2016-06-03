@@ -35,10 +35,12 @@
 <body>
   <div class="container-fluid" ng-controller="GridController as gridCtrl">
     <div class = "row spacer-header">
-      <div class = "col-sm-3 logo">
+      <div class = "col-xs-5 logo">
         [ bleep bloop ]
       </div>
-      <span class = "pull-right"><a href="#" data-toggle="modal" data-target="#signup-modal">Sign-Up</a> | <a href="#" data-toggle="modal" data-target="#login-modal">Log-in</a></span>
+      <div class = "col-xs-7">
+        <span class = "pull-right"><a href="#" data-toggle="modal" data-target="#signup-modal">Sign-Up</a> | <a href="#" data-toggle="modal" data-target="#login-modal">Log-in</a></span>
+      </div>
     </div>
 
     <div class = "row">
@@ -214,7 +216,7 @@
             <hr />
           </div>
           <div class = "row">
-              <button class="btn btn-primary btn-block" disabled="disabled">Sign Up to Save Settings</button>
+              <button class="btn btn-success btn-block" disabled="disabled">Sign Up to Save Settings</button>
           </div>
         </div>
       </div>
