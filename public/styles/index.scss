@@ -6,6 +6,9 @@ $lightblue: blue;
 
 $coolcolor:  #53bf6b;
 
+$openSans: 'Open Sans', sans-serif;
+$comfortaa: 'Comfortaa', sans-serif;
+
 // Mixins
 @mixin buttons ($color) {
   color: #fff;
@@ -25,7 +28,7 @@ $coolcolor:  #53bf6b;
 
 body {
   background-image: url("../images/new_year_background.png");
-
+  font-family: $openSans;
 }
 
 button {
@@ -49,6 +52,7 @@ a:hover {
 .logo {
   font-size: 16px !important;
   font-weight: 600 !important;
+  font-family: $comfortaa;
 }
 
 .modal-content {
@@ -59,6 +63,7 @@ a:hover {
   background-color: transparentize(#fff, .25);
   padding-top: 30px;
   padding-bottom: 30px;
+  font-weight: 700;
   // padding-left: 30px!important;
   // padding-right: 30px!important;
   // margin-right: 5px;
@@ -90,13 +95,19 @@ a:hover {
 }
 
 .range-spacer-top {
-  margin-top: 10px;
+  margin-top: 25px;
 }
 
 .spacer-top {
   margin-top: 20px;
 }
 
+h3 {
+  font-weight: 500;
+}
+.frown  {
+  text-align: center;
+}
 
 @media (min-width: 600px) {
   .desktop-padding {
