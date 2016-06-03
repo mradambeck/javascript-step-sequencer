@@ -32,7 +32,10 @@
 </head>
 <body>
   <div class="container-fluid" ng-controller="GridController as gridCtrl">
-    <div class = "row spacer-top margin-right">
+    <div class = "row spacer-header">
+      <div class = "col-sm-3 logo">
+        BLEEP // BLOOP
+      </div>
       <!-- <span class = "pull-right"><a href="#" data-toggle="modal" data-target="#my-songs-modal">My Songs</a> | <a href="/logout">Logout</a></span> -->
       <span class = "pull-right"><span class = "username"></span> | <a href="/logout">Logout</a></span>
     </div>
@@ -50,21 +53,21 @@
               <div class = "col-xs-3 col-{{grid.name}}">
 
                 <div ng-repeat="pitch in grid.pitches" class="row">
-                  <button class = "btn btn-primary note btn-block" data-column="{{grid.name}}" data-note="{{pitch}}">{{pitch}}</button>
+                  <button class = "btn btn-primary note btn-block grid" data-column="{{grid.name}}" data-note="{{pitch}}">{{pitch}}</button>
                 </div>
 
                 <div class = "row">
-                  <button class = "btn btn-danger note btn-block active" data-column="{{grid.name}}" data-note="x">X</button>
+                  <button class = "btn btn-danger note btn-sm btn-block active grid" data-column="{{grid.name}}" data-note="x">X</button>
                 </div>
 
                 <div class = "row spacer-top">
-                  <button class = "btn btn-block btn-info octave-up" data-column="{{grid.name}}" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
+                  <button class = "btn btn-block btn-info btn-sm octave-up grid" data-column="{{grid.name}}" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
                 </div>
                 <div class = "row">
-                  <button class = "btn btn-block btn-info btn-xs octave-count" id="o{{grid.name}}" data-column="{{grid.name}}" data-octave="count">4</button>
+                  <button class = "btn btn-block btn-info btn-xs octave-count grid" id="o{{grid.name}}" data-column="{{grid.name}}" data-octave="count">4</button>
                 </div>
                 <div class = "row">
-                  <button class = "btn btn-block btn-info octave-down" data-column="{{grid.name}}" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
+                  <button class = "btn btn-block btn-info btn-sm octave-down grid" data-column="{{grid.name}}" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
                 </div>
 
               </div>
@@ -79,22 +82,22 @@
             <div ng-repeat="grid in gridCtrl.gridR">
               <div class = "col-xs-3 col-{{grid.name}}">
 
-                <div ng-repeat="pitch in grid.pitches" class="row">
-                  <button class = "btn btn-primary note btn-block" data-column="{{grid.name}}" data-note="{{pitch}}">{{pitch}}</button>
+                <div ng-repeat="pitch in grid.pitches" class="row grid">
+                  <button class = "btn btn-primary note btn-block grid" data-column="{{grid.name}}" data-note="{{pitch}}">{{pitch}}</button>
                 </div>
 
                 <div class = "row">
-                  <button class = "btn btn-danger note btn-block active" data-column="{{grid.name}}" data-note="x">X</button>
+                  <button class = "btn btn-danger note btn-sm btn-block active grid" data-column="{{grid.name}}" data-note="x">X</button>
                 </div>
 
                 <div class = "row spacer-top">
-                  <button class = "btn btn-block btn-info octave-up" data-column="{{grid.name}}" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
+                  <button class = "btn btn-block btn-info octave-up btn-sm grid" data-column="{{grid.name}}" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
                 </div>
                 <div class = "row">
-                  <button class = "btn btn-block btn-info btn-xs octave-count" id="o{{grid.name}}" data-column="{{grid.name}}" data-octave="count">4</button>
+                  <button class = "btn btn-block btn-info btn-xs octave-count grid" id="o{{grid.name}}" data-column="{{grid.name}}" data-octave="count">4</button>
                 </div>
                 <div class = "row">
-                  <button class = "btn btn-block btn-info octave-down" data-column="{{grid.name}}" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
+                  <button class = "btn btn-block btn-info octave-down btn-sm grid" data-column="{{grid.name}}" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
                 </div>
 
               </div>
@@ -116,7 +119,7 @@
       </div>
 
       <div class = "row spacer-top">
-        <div class = "col-sm-5 desktop-padding">
+        <div class = "col-sm-5 desktop-padding settings-panel">
           <div class = "row">
 
             <!-- SONG MODAL -->
@@ -166,6 +169,14 @@
             </div>
             <div class = "col-xs-9 range-spacer-top">
               <input type="range" id="bpm" min="30" value="120" max="225" step="1">
+            </div>
+          </div>
+          <div class = "row">
+            <hr />
+          </div>
+          <div class = "row">
+            <div class = "col-xs-12">
+              <h4>MORE COOL SETTINGS TO COME</h4>
             </div>
           </div>
           <div class = "row">

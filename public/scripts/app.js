@@ -19,6 +19,9 @@ $(function(){
   var userId = '';
 
   if (window.location.pathname === "/"){
+    $('#pattern').val(pattern);
+    $('#notes').val(patternString);
+    
     $(".note").click(function(){
       $('#pattern').val(pattern);
       $('#notes').val(patternString);
@@ -55,6 +58,7 @@ $(function(){
     activateGrid(userSongs[userSongs.length-1].notes);
     // console.log('user: ', json);
     $('span.username').html(json.username);
+    console.log(json.username);
   }
   function handleUserError(xhr, status, errorThrown) {
     console.error(xhr, status, errorThrown);
