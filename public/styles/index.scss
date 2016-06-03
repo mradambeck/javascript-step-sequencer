@@ -1,40 +1,119 @@
-$bgcolor: #fff;
-$green: green;
-$darkblue: blue;
-$red: red;
-$lightblue: blue;
-
-$coolcolor:  #53bf6b;
 
 $openSans: 'Open Sans', sans-serif;
 $comfortaa: 'Comfortaa', sans-serif;
+$bgcolor: #fff;
 
-// Mixins
-@mixin buttons ($color) {
-  color: #fff;
-  background-color: $color;
-  border-color: darken($color, 5)!important;
+button {
+  // border-color: transparentize($bgcolor, .9)!important;
+  border: 1px solid transparentize($bgcolor, .9)!important;
 }
-@mixin buttons-hover ($color) {
-  color: #fff!important;
-  background-color: darken($color, 12)!important;
-  border-color: darken($color, 17)!important;
+
+.btn {
+  // border-color: transparentize($bgcolor, .9)!important;
+    border: 1px solid transparentize($bgcolor, .9)!important;
 }
-@mixin buttons-active ($color) {
-  color: #fff!important;
-  background-color: darken($color, 8)!important;
-  border-color: darken($color, 13)!important;
+
+@mixin btn($color, $background, $border){
+
+
+  border-radius: 0!important;
+
+  color: $color;
+  background-color: $background;
+
+
+  &:focus,
+  &.focus {
+    color: $color;
+    background-color: darken($background, 10%);
+    // border-color: transparentize($border, .9)!important;
+  }
+  &:hover {
+    color: $color;
+    background-color: darken($background, 10%);
+    // border-color: transparentize($border, .9)!important;
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $color;
+    background-color: darken($background, 10%);
+    // border-color: transparentize($border, .9)!important;
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: $color;
+      background-color: darken($background, 17%);
+      // border-color: transparentize($border, .9)!important;
+    }
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    background-image: none;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus,
+    &.focus {
+      background-color: $background;
+      // border-color: transparentize($border, .9)!important;
+
+    }
+  }
+
+  // .badge {
+  //   color: $background;
+  //   background-color: $color;
+  // }
 }
+
+
+
+
+$greentxt: #fff;
+$greenbg: #53bf6b;
+$greenborder: #fff;
+
+$redtxt: #fff;
+$redbg: red;
+$redborder: #fff;
+
+$darkbluetxt: #fff;
+$darkbluebg: blue;
+$darkblueborder: #fff;
+
+$lightbluetxt: #fff;
+$lightbluebg: blue;
+$lightblueborder: #fff;
+
+$coolcolor:  #53bf6b;
+
+
+
+.btn-success {
+  @include btn ($greentxt, $greenbg, $greenborder);
+}
+.btn-danger  {
+  @include btn ($redtxt, $redbg, $redborder);
+}
+.btn-primary {
+  @include btn ($darkbluetxt, $darkbluebg, $darkblueborder);
+}
+.btn-info {
+  @include btn ($lightbluetxt, $lightbluebg, $lightblueborder);
+}
+
 
 body {
   background-image: url("../images/new_year_background.png");
   font-family: $openSans;
 }
 
-button {
-  border-radius: 0!important;
-  border-color: transparentize($bgcolor, .9)!important;
-}
+
 
 button:focus {
   outline:0 !important;
@@ -118,78 +197,5 @@ h3 {
   .desktop-padding.settings-panel {
     background-color: transparentize(#fff, .25);
 
-    // padding-bottom: 30px;
-    // padding-left: 20px;
-    // padding-right:
-    // margin-right: 10px;
   }
 }
-
-
-// .btn-success {
-//   @include buttons ($green);
-//   // box-shadow: 1px 2px 3px lightgrey;
-// }
-// .btn-success:active,
-// .btn-success:active:focus,
-// .btn-success:focus,
-// .btn-success:hover {
-//   @include buttons-hover ($green);
-// }
-// label.btn-btn-success.active {
-//   @include buttons-active ($green);
-// }
-//
-// .btn-primary  {
-//   @include buttons ($darkblue);
-// }
-// .btn-primary:active,
-// .btn-primary:active:focus,
-// .btn-primary:focus,
-// .btn-primary:hover {
-//   @include buttons-hover ($darkblue);
-// }
-// label.btn.btn-primary.active {
-//   @include buttons-active ($darkblue);
-// }
-//
-// .btn-info  {
-//   @include buttons ($darkblue);
-// }
-// .btn-info:active,
-// .btn-info:active:focus,
-// .btn-info:focus,
-// .btn-info:hover {
-//   @include buttons-hover ($darkblue);
-// }
-// label.btn.btn-info.active {
-//   @include buttons-active ($darkblue);
-// }
-//
-// .btn-danger {
-//   @include buttons ($red);
-// }
-// .btn-danger:active,
-// .btn-danger:active:focus,
-// .btn-danger:focus,
-// .btn-danger:hover {
-//   @include buttons-hover ($red);
-// }
-// label.btn.btn-default.active {
-//   @include buttons-active ($red);
-// }
-//
-// button:focus {
-//   outline:0 !important;
-//   text-decoration: none;
-// }
-// a:focus {
-//   outline:0 !important;
-//   text-decoration: none;
-// }
-
-
-
-// div {
-//   border: 1px dotted grey;
-// }
