@@ -143,9 +143,9 @@ $(function(){
 
     // Stopping the Loop
     $(".stop-loop").click(function(){
+      $(".octave-count").removeClass("active");
 
       loop.stop();
-
     });
 
   });
