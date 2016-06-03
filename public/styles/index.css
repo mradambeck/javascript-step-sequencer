@@ -1,5 +1,41 @@
-.display-none {
-  display: none !important; }
+body {
+  background-image: url("../images/new_year_background.png"); }
+
+button {
+  border-radius: 0 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important; }
+
+button:focus {
+  outline: 0 !important;
+  text-decoration: none; }
+
+a:hover {
+  outline: 0 !important;
+  text-decoration: none; }
+
+.grid {
+  box-shadow: 3px 3px 4px #b3b3b3 !important; }
+
+.logo {
+  font-size: 16px !important;
+  font-weight: 600 !important; }
+
+.modal-content {
+  border-radius: 0; }
+
+.settings-panel {
+  background-color: rgba(255, 255, 255, 0.75);
+  padding-top: 30px;
+  padding-bottom: 30px; }
+
+.spacer-header {
+  background-color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 20px;
+  padding: 8px 30px 10px 10px !important;
+  box-shadow: 1px 1px 1px #b3b3b3 !important; }
+
+.save-song {
+  box-shadow: 3px 3px 4px #b3b3b3 !important; }
 
 .no-left-padding {
   padding-left: 0px; }
@@ -19,6 +55,9 @@
 @media (min-width: 600px) {
   .desktop-padding {
     padding-right: 50px;
-    padding-left: 50px; } }
+    padding-left: 50px; }
+
+  .desktop-padding.settings-panel {
+    background-color: rgba(255, 255, 255, 0.75); } }
 
 /*# sourceMappingURL=index.css.map */

@@ -1,9 +1,80 @@
-// div {
-//   border: 1px dotted grey;
-// }
+$bgcolor: #fff;
+$green: green;
+$darkblue: blue;
+$red: red;
+$lightblue: blue;
 
-.display-none {
-  display: none !important;
+$coolcolor:  #53bf6b;
+
+// Mixins
+@mixin buttons ($color) {
+  color: #fff;
+  background-color: $color;
+  border-color: darken($color, 5)!important;
+}
+@mixin buttons-hover ($color) {
+  color: #fff!important;
+  background-color: darken($color, 12)!important;
+  border-color: darken($color, 17)!important;
+}
+@mixin buttons-active ($color) {
+  color: #fff!important;
+  background-color: darken($color, 8)!important;
+  border-color: darken($color, 13)!important;
+}
+
+body {
+  background-image: url("../images/new_year_background.png");
+
+}
+
+button {
+  border-radius: 0!important;
+  border-color: transparentize($bgcolor, .9)!important;
+}
+
+button:focus {
+  outline:0 !important;
+  text-decoration: none;
+}
+a:hover {
+  outline:0 !important;
+  text-decoration: none;
+}
+
+.grid  {
+  box-shadow: 3px 3px 4px lighten(grey, 20)!important;
+}
+
+.logo {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+}
+
+.modal-content {
+  border-radius: 0;
+}
+
+.settings-panel {
+  background-color: transparentize(#fff, .25);
+  padding-top: 30px;
+  padding-bottom: 30px;
+  // padding-left: 30px!important;
+  // padding-right: 30px!important;
+  // margin-right: 5px;
+}
+
+.spacer-header  {
+  background-color: transparentize(#fff, .35);
+  // border-bottom: 1px solid transparentize(lightgrey, .5);
+  margin-bottom: 20px;
+  padding: 8px 30px 10px 10px!important;
+  box-shadow: 1px 1px 1px lighten(grey, 20)!important;
+}
+
+.save-song {
+  box-shadow: 3px 3px 4px lighten(grey, 20)!important;
+
 }
 
 .no-left-padding {
@@ -32,4 +103,82 @@
     padding-right: 50px;
     padding-left: 50px;
   }
+
+  .desktop-padding.settings-panel {
+    background-color: transparentize(#fff, .25);
+
+    // padding-bottom: 30px;
+    // padding-left: 20px;
+    // padding-right:
+    // margin-right: 10px;
+  }
 }
+
+
+// .btn-success {
+//   @include buttons ($green);
+//   // box-shadow: 1px 2px 3px lightgrey;
+// }
+// .btn-success:active,
+// .btn-success:active:focus,
+// .btn-success:focus,
+// .btn-success:hover {
+//   @include buttons-hover ($green);
+// }
+// label.btn-btn-success.active {
+//   @include buttons-active ($green);
+// }
+//
+// .btn-primary  {
+//   @include buttons ($darkblue);
+// }
+// .btn-primary:active,
+// .btn-primary:active:focus,
+// .btn-primary:focus,
+// .btn-primary:hover {
+//   @include buttons-hover ($darkblue);
+// }
+// label.btn.btn-primary.active {
+//   @include buttons-active ($darkblue);
+// }
+//
+// .btn-info  {
+//   @include buttons ($darkblue);
+// }
+// .btn-info:active,
+// .btn-info:active:focus,
+// .btn-info:focus,
+// .btn-info:hover {
+//   @include buttons-hover ($darkblue);
+// }
+// label.btn.btn-info.active {
+//   @include buttons-active ($darkblue);
+// }
+//
+// .btn-danger {
+//   @include buttons ($red);
+// }
+// .btn-danger:active,
+// .btn-danger:active:focus,
+// .btn-danger:focus,
+// .btn-danger:hover {
+//   @include buttons-hover ($red);
+// }
+// label.btn.btn-default.active {
+//   @include buttons-active ($red);
+// }
+//
+// button:focus {
+//   outline:0 !important;
+//   text-decoration: none;
+// }
+// a:focus {
+//   outline:0 !important;
+//   text-decoration: none;
+// }
+
+
+
+// div {
+//   border: 1px dotted grey;
+// }
