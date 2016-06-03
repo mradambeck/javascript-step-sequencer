@@ -98,47 +98,46 @@ $(function(){
     console.log(patternString);
   });
 
-  var grabNoteOnOctaveClick = function(){
-    let beatData = $(this).attr('data-column');
+  var grabNoteOnOctaveClick = function(beatData, math){
     let activeNote = $(`button[data-column="${beatData}"].active`).attr('data-note');
     let noteData = 'note.' + activeNote;
     let octId = `o${beatData}`;
     let octCount = parseInt($(`#${octId}`).text());
+    let newCount = octCount + math;
     let stringOfNoteFunction = `${activeNote}(${octCount})`;
-    pattern[beatData] = eval(noteData)(octCount);
-    patternString[beatData] = stringOfNoteFunction;
-    // return octCount;
+    let newNoteString = `${activeNote}(${newCount})`;
+
+    if (math === +1){
+      if (octCount < 8 ){
+        let newCount = (octCount + 1);
+        $(`#${octId}`).text(newCount);
+      }
+    } else {
+      if (octCount > 0){
+        let newCount = (octCount - 1);
+        $(`#${octId}`).text(newCount);
+      }
+    }
+
+    var octaveObject = {
+      activeNote: activeNote, noteData: noteData, octId: octId, newCount: newCount,
+      octCount: octCount, stringOfNoteFunction: stringOfNoteFunction, newNoteString: newNoteString
+    };
+    return octaveObject;
   };
 
   // Changing Octaves
   $("button.octave-up").click(function(){
     let beatData = $(this).attr('data-column');
-    let activeNote = $(`button[data-column="${beatData}"].active`).attr('data-note');
-    let noteData = 'note.' + activeNote;
-    let octId = `o${beatData}`;
-    let octCount = parseInt($(`#${octId}`).text());
-    let stringOfNoteFunction = `${activeNote}(${octCount})`;
-    pattern[beatData] = eval(noteData)(octCount+1);
-    patternString[beatData] = stringOfNoteFunction;
-    if (octCount < 8 ){
-      let newCount = (octCount + 1);
-      $(`#${octId}`).text(newCount);
-    }
+    let octaveHash = grabNoteOnOctaveClick(beatData, +1);
+    pattern[beatData] = eval(octaveHash.noteData)(octaveHash.newCount);
+    patternString[beatData] = octaveHash.newNoteString;
   });
   $("button.octave-down").click(function(){
     let beatData = $(this).attr('data-column');
-    let activeNote = $(`button[data-column="${beatData}"].active`).attr('data-note');
-    let noteData = 'note.' + activeNote;
-    let octId = `o${beatData}`;
-    let octCount = parseInt($(`#${octId}`).text());
-    let stringOfNoteFunction = `${activeNote}(${octCount})`;
-    pattern[beatData] = eval(noteData)(octCount-1);
-    patternString[beatData] = stringOfNoteFunction;
-    if (octCount > 0){
-      let newCount = (octCount - 1);
-      $(`#${octId}`).text(newCount);
-    }
-
+    let octaveHash = grabNoteOnOctaveClick(beatData, -1);
+    pattern[beatData] = eval(octaveHash.noteData)(octaveHash.newCount);
+    patternString[beatData] = octaveHash.newNoteString;
   });
 
   // Starting the Loop
