@@ -10,6 +10,7 @@ angular
 ////////////
 
 $(function(){
+
   const CNTXT = new window.AudioContext() || window.webkitAudioContext(); // This creates the space in which all audio occurs
 
   var note = new Note(); // allows you to generate octaves of notes dynamically
