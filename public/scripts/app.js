@@ -136,6 +136,8 @@ $(function(){
   $(".start-loop").click(function(){
     var loop = new Loop (CNTXT);
     loop.play(pattern, bpm);
+    $(".start-loop").prop('disabled', true);
+    $(".stop-loop").prop('disabled', false);
 
     $("#bpm").change(function() {
       let beatsPer = $('#bpm').val();
@@ -145,6 +147,8 @@ $(function(){
     // Stopping the Loop
     $(".stop-loop").click(function(){
       $(".octave-count").removeClass("active");
+      $(".start-loop").prop('disabled', false);
+      $(".stop-loop").prop('disabled', true);
 
       loop.stop();
     });
