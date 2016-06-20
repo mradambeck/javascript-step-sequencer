@@ -5,7 +5,9 @@ var mongoose = require('mongoose'),
 var SongSchema = new Schema({
   title: String,
   pattern: Array,
-  notes: Array
+  notes: Array,
+  bpm: Number,
+  filterValue: Number
 });
 
 var Song = mongoose.model('Song', SongSchema);

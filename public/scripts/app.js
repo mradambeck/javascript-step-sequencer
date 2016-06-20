@@ -19,6 +19,12 @@ $(function(){
   var bpm = $('#bpm').val(); // Set beats per minute (calculated to milliseconds within Loop object)
   var userId = '';
 
+  var settings = {
+    bpm: bpm,
+    filterValue: $("#filter").val()
+  };
+
+
   if (window.location.pathname === "/"){
     $('#pattern').val(pattern);
     $('#notes').val(patternString);
@@ -135,13 +141,19 @@ $(function(){
   // Starting the Loop
   $(".start-loop").click(function(){
     var loop = new Loop (CNTXT);
-    loop.play(pattern, bpm);
+    loop.play(pattern, settings);
     $(".start-loop").prop('disabled', true);
     $(".stop-loop").prop('disabled', false);
 
     $("#bpm").change(function() {
       let beatsPer = $('#bpm').val();
       loop.tempo = (1000 * 60 / beatsPer / 2);
+      settings.bpm = beatsPer;
+    });
+
+    $("#filter").change(function() {
+      settings.filterValue = $('#filter').val();
+      console.log(settings);
     });
 
     // Stopping the Loop
@@ -162,7 +174,9 @@ $(function(){
     let newSong = {
       title: 'newest song',
       pattern: pattern,
-      notes: patternString
+      notes: patternString,
+      bpm: settings.bpm,
+      filterValue: settings.filterValue
     };
 
     $.ajax({
@@ -184,7 +198,7 @@ $(function(){
 
   // Changing BPM
   $("#bpm").change(function() {
-    bpm = $('#bpm').val();
+    settings.bpm = $('#bpm').val();
   });
 
 });
