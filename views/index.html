@@ -116,7 +116,7 @@
         <div class = "row spacer-top">
           <div class = "col-sm-12">
             <button class="btn btn-success btn-lg start-loop"><span class="glyphicon glyphicon-play" aria-hdata-columnden="true"></span></button>
-            <button class="btn btn-danger btn-lg stop-loop"><span class="glyphicon glyphicon-stop" aria-hdata-columnden="true"></span></button>
+            <button class="btn btn-danger btn-lg stop-loop" disabled="true"><span class="glyphicon glyphicon-stop" aria-hdata-columnden="true"></span></button>
           </div>
         </div>
 
@@ -208,6 +208,20 @@
           <div class = "row">
             <hr />
           </div>
+
+
+          <div class = "row">
+            <div class = "col-xs-3">
+              <h3>FILTER</h3>
+            </div>
+            <div class = "col-xs-9 range-spacer-top">
+              <input type="range" id="filter" min="15" value="5000" max="7000" step="1">
+            </div>
+          </div>
+          <div class = "row">
+            <hr />
+          </div>
+
           <div class = "row">
             <div class = "col-xs-12">
               <h3 class="frown">(more awesome settings to come)</h3>

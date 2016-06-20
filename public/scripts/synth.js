@@ -62,7 +62,7 @@ class FilterBank {
 }
 
 class NoiseMaker {
-  constructor(freq, dur, wave, context){
+  constructor(freq, dur, wave, context, settings){
     var speaker = context.destination; // OUTPUT
     this.freq = freq; // note frequency
     this.dur = dur; // note duration
@@ -74,7 +74,7 @@ class NoiseMaker {
     amplifier.input.connect(speaker);
 
     this.configFx = {
-      filterValue: 3000,
+      filterValue: settings.filterValue,
       detune: 1000,
       q: 20,
       connection: amplifier.input,
@@ -94,13 +94,14 @@ class Loop {
   constructor(cntxt){
     this.cntxt = cntxt; // main audio context
   }
-  play(pattern, bpm){
+  play(pattern, settings){
 
+    console.log(settings);
     var beat = 0; // Start the measure at the first beat
 
     var traverseMeasure = function(pattern, this_cntxt){
       let freq = pattern[beat]; // play the appropriate note in the measure
-      let note = new NoiseMaker(freq, 0.5, 'triangle', this_cntxt);
+      let note = new NoiseMaker(freq, 0.5, 'triangle', this_cntxt, settings);
       let lastBeat = beat - 1;
       note.sound();
 
@@ -117,7 +118,7 @@ class Loop {
       beat < 7 ? ( beat++ ) : ( beat = 0 );
     };
 
-    this.tempo = (1000 * 60 / bpm / 2);
+    this.tempo = (1000 * 60 / settings.bpm / 2);
     var tempo = this.tempo;
     var interval;
 

@@ -6,6 +6,8 @@ This is a, 8 bar step sequencer made with the Javascript Web Audio API.
 
 [Link to the site on Heroku](https://stepsequencer.herokuapp.com/)
 
+### Please note that this is an in progress project.
+
 Technologies Used:
 * Javascript
 * Node.js
@@ -26,6 +28,6 @@ Planned Features:
 * Effects! Reverb, delay, distortion, BiQuad filter
 * Drum machine sounds
 
-[Link to Github](https://git.heroku.com/seen-it-heard-it.git)
+[Link to Github](https://github.com/mradambeck/javascript-step-sequencer)
 
 [Here's a cute puppy](https://s-media-cache-ak0.pinimg.com/736x/35/a7/c3/35a7c3ecc2b71856aad4b12560b5f3d9.jpg)
