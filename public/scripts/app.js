@@ -152,6 +152,23 @@ $(function(){
     patternString[beatData] = octaveHash.newNoteString;
   });
 
+
+  $("#bpm").change(function() {
+    let beatsPer = $('#bpm').val();
+    loop.tempo = (1000 * 60 / beatsPer / 2);
+    settings.bpm = beatsPer;
+  });
+
+  $("#filter").change(function() {
+    settings.filterValue = $('#filter').val();
+    console.log(settings);
+  });
+
+  $('#waveform').change(function() {
+    settings.waveform = $('#waveform').val();
+    console.log(settings);
+  });
+
   // Starting the Loop
   $(".start-loop").click(function(){
     var loop = new Loop (CNTXT);
@@ -159,21 +176,7 @@ $(function(){
     $(".start-loop").prop('disabled', true);
     $(".stop-loop").prop('disabled', false);
 
-    $("#bpm").change(function() {
-      let beatsPer = $('#bpm').val();
-      loop.tempo = (1000 * 60 / beatsPer / 2);
-      settings.bpm = beatsPer;
-    });
 
-    $("#filter").change(function() {
-      settings.filterValue = $('#filter').val();
-      console.log(settings);
-    });
-
-    $('#waveform').change(function() {
-      settings.waveform = $('#waveform').val();
-      console.log(settings);
-    });
 
     // Stopping the Loop
     $(".stop-loop").click(function(){
