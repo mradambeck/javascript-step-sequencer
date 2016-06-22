@@ -63,10 +63,16 @@ $(function(){
   };
 
   var generateSettings = function(song) {
-    console.log(song.filterValue);
-    $("#filter").val(song.filterValue);
-    $('#bpm').val(song.bpm);
+
+    $('#filter').val(song.filterValue);
+    settings.filterValue = song.filterValue;
+
     $('#waveform').val(song.waveform);
+    settings.waveform = song.waveform;
+
+    $('#bpm').val(song.bpm);
+    settings.bpm = song.bpm;
+
   };
 
   function handleUserSuccess(json) {
@@ -76,10 +82,8 @@ $(function(){
     patternString = lastSong.notes;
     activateGrid(lastSong.notes);
     generateSettings(lastSong);
-    // console.log('user: ', json);
+
     $('span.username').html(json.username);
-    console.log('hey');
-    console.log('lastSong.filterValue = ', lastSong.filterValue);
   }
   function handleUserError(xhr, status, errorThrown) {
     console.error(xhr, status, errorThrown);
@@ -212,10 +216,10 @@ $(function(){
     });
 
     var submitSongSuccess = function(){
-      console.log('yay');
+      console.log('song saved');
     };
     var submitSongError = function(){
-      console.error('boo');
+      console.error('song save error');
     };
   });
 
