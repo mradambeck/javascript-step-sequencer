@@ -11,6 +11,7 @@ angular
 
 $(function(){
 
+
   const CNTXT = new window.AudioContext() || window.webkitAudioContext(); // This creates the space in which all audio occurs
 
   var note = new Note(); // allows you to generate octaves of notes dynamically
@@ -18,10 +19,13 @@ $(function(){
   var patternString = [ 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)' ]; // string version (used in recall of pattern)
   var bpm = $('#bpm').val(); // Set beats per minute (calculated to milliseconds within Loop object)
   var userId = '';
+  var waveform = $('#waveform').val(); // sets waveform value
+  var filterValue = $("#filter").val();
 
   var settings = {
     bpm: bpm,
-    filterValue: $("#filter").val()
+    filterValue: filterValue,
+    waveform: waveform
   };
 
 
@@ -58,14 +62,28 @@ $(function(){
     }
   };
 
+  var generateSettings = function(song) {
+
+    $('#filter').val(song.filterValue);
+    settings.filterValue = song.filterValue;
+
+    $('#waveform').val(song.waveform);
+    settings.waveform = song.waveform;
+
+    $('#bpm').val(song.bpm);
+    settings.bpm = song.bpm;
+
+  };
+
   function handleUserSuccess(json) {
     var userSongs = json.songs;
-    pattern = userSongs[userSongs.length-1].pattern;
-    patternString = userSongs[userSongs.length-1].notes;
-    activateGrid(userSongs[userSongs.length-1].notes);
-    // console.log('user: ', json);
+    var lastSong = userSongs[userSongs.length-1];
+    pattern = lastSong.pattern;
+    patternString = lastSong.notes;
+    activateGrid(lastSong.notes);
+    generateSettings(lastSong);
+
     $('span.username').html(json.username);
-    console.log(json.username);
   }
   function handleUserError(xhr, status, errorThrown) {
     console.error(xhr, status, errorThrown);
@@ -138,6 +156,23 @@ $(function(){
     patternString[beatData] = octaveHash.newNoteString;
   });
 
+
+  $("#bpm").change(function() {
+    let beatsPer = $('#bpm').val();
+    loop.tempo = (1000 * 60 / beatsPer / 2);
+    settings.bpm = beatsPer;
+  });
+
+  $("#filter").change(function() {
+    settings.filterValue = $('#filter').val();
+    console.log(settings);
+  });
+
+  $('#waveform').change(function() {
+    settings.waveform = $('#waveform').val();
+    console.log(settings);
+  });
+
   // Starting the Loop
   $(".start-loop").click(function(){
     var loop = new Loop (CNTXT);
@@ -145,16 +180,7 @@ $(function(){
     $(".start-loop").prop('disabled', true);
     $(".stop-loop").prop('disabled', false);
 
-    $("#bpm").change(function() {
-      let beatsPer = $('#bpm').val();
-      loop.tempo = (1000 * 60 / beatsPer / 2);
-      settings.bpm = beatsPer;
-    });
 
-    $("#filter").change(function() {
-      settings.filterValue = $('#filter').val();
-      console.log(settings);
-    });
 
     // Stopping the Loop
     $(".stop-loop").click(function(){
@@ -176,7 +202,8 @@ $(function(){
       pattern: pattern,
       notes: patternString,
       bpm: settings.bpm,
-      filterValue: settings.filterValue
+      filterValue: settings.filterValue,
+      waveform: settings.waveform
     };
 
     $.ajax({
@@ -189,10 +216,10 @@ $(function(){
     });
 
     var submitSongSuccess = function(){
-      console.log('yay');
+      console.log('song saved');
     };
     var submitSongError = function(){
-      console.error('boo');
+      console.error('song save error');
     };
   });
 

@@ -13,6 +13,12 @@ a {
     outline: 0 !important;
     text-decoration: none; }
 
+.display-none {
+  display: none; }
+
+.dropdown-spacer-top {
+  margin-top: 15px; }
+
 .grid {
   box-shadow: 3px 3px 4px #b3b3b3 !important; }
 
