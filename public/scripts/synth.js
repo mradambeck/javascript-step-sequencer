@@ -62,11 +62,11 @@ class FilterBank {
 }
 
 class NoiseMaker {
-  constructor(freq, dur, wave, context, settings){
+  constructor(freq, dur, context, settings){
     var speaker = context.destination; // OUTPUT
     this.freq = freq; // note frequency
     this.dur = dur; // note duration
-    this.wave = wave; // note waveform
+    this.wave = settings.waveform; // note waveform
 
     var amplifier = {};
     amplifier.input = context.createGain();
@@ -101,7 +101,7 @@ class Loop {
 
     var traverseMeasure = function(pattern, this_cntxt){
       let freq = pattern[beat]; // play the appropriate note in the measure
-      let note = new NoiseMaker(freq, 0.5, 'triangle', this_cntxt, settings);
+      let note = new NoiseMaker(freq, 0.5, this_cntxt, settings);
       let lastBeat = beat - 1;
       note.sound();
 

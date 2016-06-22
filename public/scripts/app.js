@@ -11,6 +11,7 @@ angular
 
 $(function(){
 
+
   const CNTXT = new window.AudioContext() || window.webkitAudioContext(); // This creates the space in which all audio occurs
 
   var note = new Note(); // allows you to generate octaves of notes dynamically
@@ -18,10 +19,13 @@ $(function(){
   var patternString = [ 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)' ]; // string version (used in recall of pattern)
   var bpm = $('#bpm').val(); // Set beats per minute (calculated to milliseconds within Loop object)
   var userId = '';
+  var waveform = $('#waveform').val(); // sets waveform value
+  var filterValue = $("#filter").val();
 
   var settings = {
     bpm: bpm,
-    filterValue: $("#filter").val()
+    filterValue: filterValue,
+    waveform: waveform
   };
 
 
@@ -58,14 +62,24 @@ $(function(){
     }
   };
 
+  var generateSettings = function(song) {
+    console.log(song.filterValue);
+    $("#filter").val(song.filterValue);
+    $('#bpm').val(song.bpm);
+    $('#waveform').val(song.waveform);
+  };
+
   function handleUserSuccess(json) {
     var userSongs = json.songs;
-    pattern = userSongs[userSongs.length-1].pattern;
-    patternString = userSongs[userSongs.length-1].notes;
-    activateGrid(userSongs[userSongs.length-1].notes);
+    var lastSong = userSongs[userSongs.length-1];
+    pattern = lastSong.pattern;
+    patternString = lastSong.notes;
+    activateGrid(lastSong.notes);
+    generateSettings(lastSong);
     // console.log('user: ', json);
     $('span.username').html(json.username);
-    console.log(json.username);
+    console.log('hey');
+    console.log('lastSong.filterValue = ', lastSong.filterValue);
   }
   function handleUserError(xhr, status, errorThrown) {
     console.error(xhr, status, errorThrown);
@@ -156,6 +170,11 @@ $(function(){
       console.log(settings);
     });
 
+    $('#waveform').change(function() {
+      settings.waveform = $('#waveform').val();
+      console.log(settings);
+    });
+
     // Stopping the Loop
     $(".stop-loop").click(function(){
       $(".octave-count").removeClass("active");
@@ -176,7 +195,8 @@ $(function(){
       pattern: pattern,
       notes: patternString,
       bpm: settings.bpm,
-      filterValue: settings.filterValue
+      filterValue: settings.filterValue,
+      waveform: settings.waveform
     };
 
     $.ajax({
