@@ -12,7 +12,7 @@ class Synth {
     volume.connect(connection); // Connect Synth to next path (Filter)
   }
 
-  playNote (frequency = 440, duration = 0.5, wave = 'triangle') {
+  playNote (frequency = 440, duration = 0.5, wave = triangle) {
     let osc = this.osc;
     osc.type = wave;
     osc.frequency.value = frequency;
@@ -62,10 +62,10 @@ class FilterBank {
 }
 
 class NoiseMaker {
-  constructor(freq, dur, context, settings){
+  constructor(freq, context, settings){
     var speaker = context.destination; // OUTPUT
     this.freq = freq; // note frequency
-    this.dur = dur; // note duration
+    this.dur = (settings.duration / 100); // note duration
     this.wave = settings.waveform; // note waveform
 
     var amplifier = {};
@@ -101,7 +101,7 @@ class Loop {
 
     var traverseMeasure = function(pattern, this_cntxt){
       let freq = pattern[beat]; // play the appropriate note in the measure
-      let note = new NoiseMaker(freq, 0.5, this_cntxt, settings);
+      let note = new NoiseMaker(freq, this_cntxt, settings);
       let lastBeat = beat - 1;
       note.sound();
 

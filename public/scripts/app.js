@@ -17,15 +17,17 @@ $(function(){
   var note = new Note(); // allows you to generate octaves of notes dynamically
   var pattern = [ note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0), note.x(0) ]; // notes in the measure
   var patternString = [ 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)', 'x(0)' ]; // string version (used in recall of pattern)
-  var bpm = $('#bpm').val(); // Set beats per minute (calculated to milliseconds within Loop object)
+  var bpm = $('#bpm').val() || 120; // Set beats per minute (calculated to milliseconds within Loop object)
   var userId = '';
   var waveform = $('#waveform').val(); // sets waveform value
-  var filterValue = $("#filter").val();
+  var filterValue = $("#filter").val(); // sets frequency of biquad filter
+  var duration = $("#duration").val(); // sets note length
 
   var settings = {
     bpm: bpm,
     filterValue: filterValue,
-    waveform: waveform
+    waveform: waveform,
+    duration: duration
   };
 
 
@@ -64,14 +66,17 @@ $(function(){
 
   var generateSettings = function(song) {
 
-    $('#filter').val(song.filterValue);
-    settings.filterValue = song.filterValue;
+    $('#filter').val(song.filterValue || 1500);
+    settings.filterValue = song.filterValue || 1500;
 
-    $('#waveform').val(song.waveform);
-    settings.waveform = song.waveform;
+    $('#waveform').val(song.waveform || 'triangle');
+    settings.waveform = song.waveform || 'triangle';
 
-    $('#bpm').val(song.bpm);
-    settings.bpm = song.bpm;
+    $('#duration').val(song.duration || 50);
+    settings.duration = song.duration || 50;
+
+    $('#bpm').val(song.bpm || 120);
+    settings.bpm = song.bpm || 120;
 
   };
 
@@ -168,6 +173,11 @@ $(function(){
     console.log(settings);
   });
 
+  $("#duration").change(function() {
+    settings.duration = $('#duration').val();
+    console.log(settings);
+  });
+
   $('#waveform').change(function() {
     settings.waveform = $('#waveform').val();
     console.log(settings);
@@ -203,7 +213,8 @@ $(function(){
       notes: patternString,
       bpm: settings.bpm,
       filterValue: settings.filterValue,
-      waveform: settings.waveform
+      waveform: settings.waveform,
+      duration: settings.duration
     };
 
     $.ajax({
