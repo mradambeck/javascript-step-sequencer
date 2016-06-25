@@ -8,7 +8,8 @@ var SongSchema = new Schema({
   notes: Array,
   bpm: Number,
   filterValue: Number,
-  waveform: String
+  waveform: String,
+  duration: Number
 });
 
 var Song = mongoose.model('Song', SongSchema);
