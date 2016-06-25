@@ -70,7 +70,7 @@ $(function(){
     settings.filterValue = song.filterValue || 1500;
 
     $('#waveform').val(song.waveform || 'triangle');
-    settings.waveform = song.waveform || 'traingle';
+    settings.waveform = song.waveform || 'triangle';
 
     $('#duration').val(song.duration || 50);
     settings.duration = song.duration || 50;
