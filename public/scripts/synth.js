@@ -85,7 +85,7 @@ class NoiseMaker {
       q: 20,
       connection: amplifier.input,
       delayValue: settings.delay/10,
-      feedbackValue: settings.feedback,
+      feedbackValue: settings.feedback/10,
       context: context
     };
 

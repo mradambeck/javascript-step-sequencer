@@ -23,13 +23,15 @@ $(function(){
   var filterValue = $("#filter").val(); // sets frequency of biquad filter
   var duration = $("#duration").val(); // sets note length
   var delay = $("#delay").val(); // sets delay timing
+  var feedback = $("#feedback").val(); // sets feedback of delay regeneration
 
   var settings = {
     bpm: bpm,
     filterValue: filterValue,
     waveform: waveform,
     duration: duration,
-    delay: delay
+    delay: delay,
+    feedback: feedback
   };
 
 
@@ -82,6 +84,9 @@ $(function(){
 
     $('#delay').val(song.delay || 0.1);
     settings.delay = song.delay || 0.1;
+
+    $('#feedback').val(song.delay || 0.3);
+    settings.feedback = song.feedback || 0.3;
 
   };
 
@@ -190,6 +195,11 @@ $(function(){
 
   $('#delay').change(function() {
     settings.delay = $('#delay').val();
+    console.log(settings);
+  });
+
+  $('#feedback').change(function() {
+    settings.feedback = $('#feedback').val();
     console.log(settings);
   });
 
