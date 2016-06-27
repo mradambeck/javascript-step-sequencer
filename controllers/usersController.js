@@ -40,12 +40,24 @@ function createUser (req, res){
 
   var patternArray = req.body.pattern.split(',');
   var noteArray = req.body.notes.split(',');
+  var songFilterValue = req.body.filterValue,
+      songDuration = req.body.duration,
+      songDelay = req.body.delay,
+      songFeedback = req.body.feedback,
+      songWaveform = req.body.waveform,
+      songBpm = req.body.bpm;
 
   var songArray = [];
   var firstSong = new Song ({
     title: "First Song",
     pattern: patternArray,
-    notes: noteArray
+    notes: noteArray,
+    bpm: songBpm,
+    filterValue: songFilterValue,
+    waveform: songWaveform,
+    duration: songDuration,
+    delay: songDelay,
+    feedback: songFeedback
   });
   songArray.push(firstSong);
 

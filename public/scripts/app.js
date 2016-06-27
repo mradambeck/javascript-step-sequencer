@@ -22,14 +22,17 @@ $(function(){
   var waveform = $('#waveform').val(); // sets waveform value
   var filterValue = $("#filter").val(); // sets frequency of biquad filter
   var duration = $("#duration").val(); // sets note length
+  var delay = $("#delay").val(); // sets delay timing
+  var feedback = $("#feedback").val(); // sets feedback of delay regeneration
 
   var settings = {
     bpm: bpm,
     filterValue: filterValue,
     waveform: waveform,
-    duration: duration
+    duration: duration,
+    delay: delay,
+    feedback: feedback
   };
-
 
   if (window.location.pathname === "/"){
     $('#pattern').val(pattern);
@@ -66,7 +69,7 @@ $(function(){
 
   var generateSettings = function(song) {
 
-    $('#filter').val(song.filterValue || 1500);
+    $('#filter').val(song.filterValue || 1500 && console.error("didn't find filterValue"));
     settings.filterValue = song.filterValue || 1500;
 
     $('#waveform').val(song.waveform || 'triangle');
@@ -77,6 +80,12 @@ $(function(){
 
     $('#bpm').val(song.bpm || 120);
     settings.bpm = song.bpm || 120;
+
+    $('#delay').val(song.delay || 0.1);
+    settings.delay = song.delay || 0.1;
+
+    $('#feedback').val(song.delay || 0.3);
+    settings.feedback = song.feedback || 0.3;
 
   };
 
@@ -183,6 +192,16 @@ $(function(){
     console.log(settings);
   });
 
+  $('#delay').change(function() {
+    settings.delay = $('#delay').val();
+    console.log(settings);
+  });
+
+  $('#feedback').change(function() {
+    settings.feedback = $('#feedback').val();
+    console.log(settings);
+  });
+
   // Starting the Loop
   $(".start-loop").click(function(){
     var loop = new Loop (CNTXT);
@@ -214,7 +233,9 @@ $(function(){
       bpm: settings.bpm,
       filterValue: settings.filterValue,
       waveform: settings.waveform,
-      duration: settings.duration
+      duration: settings.duration,
+      delay: settings.delay,
+      feedback: settings.feedback
     };
 
     $.ajax({
@@ -237,6 +258,16 @@ $(function(){
   // Changing BPM
   $("#bpm").change(function() {
     settings.bpm = $('#bpm').val();
+  });
+
+  //Save settings for new user:
+  $("#signup-link").click(function() {
+    $('#signup-waveform').val(settings.waveform);
+    $('#signup-filterValue').val(settings.filterValue);
+    $('#signup-duration').val(settings.duration);
+    $('#signup-delay').val(settings.delay);
+    $('#signup-bpm').val(settings.bpm);
+    $('#signup-feedback').val(settings.feedback);
   });
 
 });

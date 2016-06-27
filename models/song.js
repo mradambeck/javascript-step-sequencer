@@ -9,7 +9,9 @@ var SongSchema = new Schema({
   bpm: Number,
   filterValue: Number,
   waveform: String,
-  duration: Number
+  duration: Number,
+  delay: Number,
+  feedback: Number
 });
 
 var Song = mongoose.model('Song', SongSchema);
