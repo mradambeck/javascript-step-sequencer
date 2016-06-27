@@ -34,7 +34,6 @@ $(function(){
     feedback: feedback
   };
 
-
   if (window.location.pathname === "/"){
     $('#pattern').val(pattern);
     $('#notes').val(patternString);
@@ -234,7 +233,9 @@ $(function(){
       bpm: settings.bpm,
       filterValue: settings.filterValue,
       waveform: settings.waveform,
-      duration: settings.duration
+      duration: settings.duration,
+      delay: settings.delay,
+      feedback: settings.feedback
     };
 
     $.ajax({
@@ -257,6 +258,16 @@ $(function(){
   // Changing BPM
   $("#bpm").change(function() {
     settings.bpm = $('#bpm').val();
+  });
+
+  //Save settings for new user:
+  $("#signup-link").click(function() {
+    $('#signup-waveform').val(settings.waveform);
+    $('#signup-filterValue').val(settings.filterValue);
+    $('#signup-duration').val(settings.duration);
+    $('#signup-delay').val(settings.delay);
+    $('#signup-bpm').val(settings.bpm);
+    $('#signup-feedback').val(settings.feedback);
   });
 
 });
