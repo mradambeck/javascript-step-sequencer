@@ -22,12 +22,14 @@ $(function(){
   var waveform = $('#waveform').val(); // sets waveform value
   var filterValue = $("#filter").val(); // sets frequency of biquad filter
   var duration = $("#duration").val(); // sets note length
+  var delay = $("#delay").val(); // sets delay timing
 
   var settings = {
     bpm: bpm,
     filterValue: filterValue,
     waveform: waveform,
-    duration: duration
+    duration: duration,
+    delay: delay
   };
 
 
@@ -66,7 +68,7 @@ $(function(){
 
   var generateSettings = function(song) {
 
-    $('#filter').val(song.filterValue || 1500);
+    $('#filter').val(song.filterValue || 1500 && console.error("didn't find filterValue"));
     settings.filterValue = song.filterValue || 1500;
 
     $('#waveform').val(song.waveform || 'triangle');
@@ -77,6 +79,9 @@ $(function(){
 
     $('#bpm').val(song.bpm || 120);
     settings.bpm = song.bpm || 120;
+
+    $('#delay').val(song.delay || 0.1);
+    settings.delay = song.delay || 0.1;
 
   };
 
@@ -180,6 +185,11 @@ $(function(){
 
   $('#waveform').change(function() {
     settings.waveform = $('#waveform').val();
+    console.log(settings);
+  });
+
+  $('#delay').change(function() {
+    settings.delay = $('#delay').val();
     console.log(settings);
   });
 

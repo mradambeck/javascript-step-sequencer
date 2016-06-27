@@ -36,6 +36,7 @@ class FilterBank {
     let q = configFx.q || 20;
     let connection = configFx.connection || amplifier.input;
     let delayValue = configFx.delayValue || 0.1;
+    let feedbackValue = configFx.feedbackValue || 0.3;
 
     // Biquad Filter
     let bq = this.biquadFilter = the_context.createBiquadFilter();
@@ -45,7 +46,10 @@ class FilterBank {
 
     // Delay
     let delay = this.delay = the_context.createDelay();
+    let delayFeedback = the_context.createGain();
+    delayFeedback.gain.value = feedbackValue;
     delay.delayTime.value = delayValue;
+
 
     // Send Delay and Reverb through a sidechain
     let sideChainVolume = this.sideChainVolume = the_context.createGain();
@@ -54,6 +58,8 @@ class FilterBank {
 
     // Connections
     bq.connect(delay);
+    delay.connect(delayFeedback);
+    delayFeedback.connect(delay);
     delay.connect(sideChainVolume);
     sideChainVolume.connect(connection);
     bq.connect(connection);
@@ -78,7 +84,8 @@ class NoiseMaker {
       detune: 1000,
       q: 20,
       connection: amplifier.input,
-      delayValue: 0.2,
+      delayValue: settings.delay/10,
+      feedbackValue: settings.feedback,
       context: context
     };
 
