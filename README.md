@@ -19,13 +19,14 @@ Technologies Used:
 Existing Features:
 * A user can play an 8 bar loop of notes
 * A user can change octave of selected notes
-* Users are able to sign up for an account and recall their loop
+* Effects! Delay, BiQuad filter, Note Length
 
 Planned Features:
+* Users to be able to sign up for an account and recall their loop (This is basically there, but disabled)
+* Ability to change BPM
 * Ability to save multiple loops and recall them
 * Setup and play more than one loop at a time
 * Switch between different saved loops without reload or stopping the music
-* Effects! Reverb, delay, distortion, BiQuad filter
 * Drum machine sounds
 
 [Link to Github](https://github.com/mradambeck/javascript-step-sequencer)
