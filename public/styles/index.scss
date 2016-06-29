@@ -52,6 +52,13 @@ a {
   margin-top: 15px;
 }
 
+.glyphicon-question-sign {
+  font-size: 16px;
+  &:active {
+    color: darken($lightbluebg, 20%);
+  }
+}
+
 .grid  {
   box-shadow: 3px 3px 4px lighten(grey, 20)!important;
 }
@@ -60,6 +67,10 @@ a {
   font-size: 16px !important;
   font-weight: 600 !important;
   font-family: $comfortaa;
+}
+
+.modal-body {
+  font-weight: 300;
 }
 
 .modal-content {
