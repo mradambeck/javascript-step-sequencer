@@ -42,71 +42,6 @@ $(function(){
       $('#pattern').val(pattern);
       $('#notes').val(patternString);
     });
-  } else {
-    let path = window.location.pathname;
-    userId = path.split('/')[2];
-
-    $.ajax({
-      method: 'GET',
-      url: ('/api/users/' + userId),
-      success: handleUserSuccess,
-      error: handleUserError
-    });
-  }
-
-  // adds styling to grid to show what notes are active
-  var activateGrid = function (arr){
-    for (var i = 0; i < arr.length; i++ ){
-      let splitNote = arr[i].split('(');
-      let splitNum = splitNote[1].split(')');
-      if (splitNote[0] !== 'x'){
-        $(`button[data-note=${splitNote[0]}][data-column="${i}"]`).addClass('active');
-        $(`button[data-note="x"][data-column="${i}"]`).removeClass('active');
-        $(`button[data-column="${i}"][data-octave="count"]`).text(splitNum[0]);
-      }
-    }
-  };
-
-  var generateSettings = function(song) {
-
-    $('#filter').val(song.filterValue || 1500 && console.error("didn't find filterValue"));
-    settings.filterValue = song.filterValue || 1500;
-
-    $('#waveform').val(song.waveform || 'triangle');
-    settings.waveform = song.waveform || 'triangle';
-
-    $('#duration').val(song.duration || 50);
-    settings.duration = song.duration || 50;
-
-    $('#bpm').val(song.bpm || 120);
-    settings.bpm = song.bpm || 120;
-
-    $('#delay').val(song.delay || 0.1);
-    settings.delay = song.delay || 0.1;
-
-    $('#feedback').val(song.delay || 0.3);
-    settings.feedback = song.feedback || 0.3;
-
-  };
-
-  function handleUserSuccess(json) {
-    var userSongs = json.songs;
-    var lastSong = userSongs[userSongs.length-1];
-    pattern = lastSong.pattern;
-    patternString = lastSong.notes;
-    activateGrid(lastSong.notes);
-    generateSettings(lastSong);
-
-    $('span.username').html(json.username);
-  }
-  function handleUserError(xhr, status, errorThrown) {
-    console.error(xhr, status, errorThrown);
-  }
-
-  function handleNoUserSuccess(json) {
-  }
-  function handleNoUserError(xhr, status, errorThrown) {
-    console.error(xhr, status, errorThrown);
   }
 
   // Selecting notes
@@ -222,52 +157,128 @@ $(function(){
 
   });
 
-
-
-  // Save song
-  $("button.save-song").click(function(){
-    let newSong = {
-      title: 'newest song',
-      pattern: pattern,
-      notes: patternString,
-      bpm: settings.bpm,
-      filterValue: settings.filterValue,
-      waveform: settings.waveform,
-      duration: settings.duration,
-      delay: settings.delay,
-      feedback: settings.feedback
-    };
-
-    $.ajax({
-      method: "POST",
-      url: "/api/users/" + userId + "/songs",
-      data: newSong,
-      dataType: "json",
-      success: submitSongSuccess,
-      error: submitSongError
-    });
-
-    var submitSongSuccess = function(){
-      console.log('song saved');
-    };
-    var submitSongError = function(){
-      console.error('song save error');
-    };
-  });
-
   // Changing BPM
   $("#bpm").change(function() {
     settings.bpm = $('#bpm').val();
   });
 
-  //Save settings for new user:
-  $("#signup-link").click(function() {
-    $('#signup-waveform').val(settings.waveform);
-    $('#signup-filterValue').val(settings.filterValue);
-    $('#signup-duration').val(settings.duration);
-    $('#signup-delay').val(settings.delay);
-    $('#signup-bpm').val(settings.bpm);
-    $('#signup-feedback').val(settings.feedback);
-  });
+
+///////////////////////////////////////
+// JS FOR SAVING AND RECALLING USERS //
+//        (CURRENTLY DISABLED)       //
+///////////////////////////////////////
+
+//// FOR USER RECALLING, THIS IS THE SECOND HALF OF THE FUNCTION BEGINNING LINE 37
+// else {
+//   let path = window.location.pathname;
+//   userId = path.split('/')[2];
+//
+//   $.ajax({
+//     method: 'GET',
+//     url: ('/api/users/' + userId),
+//     success: handleUserSuccess,
+//     error: handleUserError
+//   });
+// }
+//
+// // adds styling to grid to show what notes are active
+// var activateGrid = function (arr){
+//   for (var i = 0; i < arr.length; i++ ){
+//     let splitNote = arr[i].split('(');
+//     let splitNum = splitNote[1].split(')');
+//     if (splitNote[0] !== 'x'){
+//       $(`button[data-note=${splitNote[0]}][data-column="${i}"]`).addClass('active');
+//       $(`button[data-note="x"][data-column="${i}"]`).removeClass('active');
+//       $(`button[data-column="${i}"][data-octave="count"]`).text(splitNum[0]);
+//     }
+//   }
+// };
+//
+// var generateSettings = function(song) {
+//
+//   $('#filter').val(song.filterValue || 1500 && console.error("didn't find filterValue"));
+//   settings.filterValue = song.filterValue || 1500;
+//
+//   $('#waveform').val(song.waveform || 'triangle');
+//   settings.waveform = song.waveform || 'triangle';
+//
+//   $('#duration').val(song.duration || 50);
+//   settings.duration = song.duration || 50;
+//
+//   $('#bpm').val(song.bpm || 120);
+//   settings.bpm = song.bpm || 120;
+//
+//   $('#delay').val(song.delay || 0.1);
+//   settings.delay = song.delay || 0.1;
+//
+//   $('#feedback').val(song.delay || 0.3);
+//   settings.feedback = song.feedback || 0.3;
+//
+// };
+//
+// function handleUserSuccess(json) {
+//   var userSongs = json.songs;
+//   var lastSong = userSongs[userSongs.length-1];
+//   pattern = lastSong.pattern;
+//   patternString = lastSong.notes;
+//   activateGrid(lastSong.notes);
+//   generateSettings(lastSong);
+//
+//   $('span.username').html(json.username);
+// }
+// function handleUserError(xhr, status, errorThrown) {
+//   console.error(xhr, status, errorThrown);
+// }
+//
+// function handleNoUserSuccess(json) {
+// }
+// function handleNoUserError(xhr, status, errorThrown) {
+//   console.error(xhr, status, errorThrown);
+// }
+
+
+  // // KEEP IN SAME POSITION
+  // // Save song
+  // $("button.save-song").click(function(){
+  //   let newSong = {
+  //     title: 'newest song',
+  //     pattern: pattern,
+  //     notes: patternString,
+  //     bpm: settings.bpm,
+  //     filterValue: settings.filterValue,
+  //     waveform: settings.waveform,
+  //     duration: settings.duration,
+  //     delay: settings.delay,
+  //     feedback: settings.feedback
+  //   };
+  //
+  //   $.ajax({
+  //     method: "POST",
+  //     url: "/api/users/" + userId + "/songs",
+  //     data: newSong,
+  //     dataType: "json",
+  //     success: submitSongSuccess,
+  //     error: submitSongError
+  //   });
+  //
+  //   var submitSongSuccess = function(){
+  //     console.log('song saved');
+  //   };
+  //   var submitSongError = function(){
+  //     console.error('song save error');
+  //   };
+  // });
+
+  // //Save settings for new user:
+  // $("#signup-link").click(function() {
+  //   $('#signup-waveform').val(settings.waveform);
+  //   $('#signup-filterValue').val(settings.filterValue);
+  //   $('#signup-duration').val(settings.duration);
+  //   $('#signup-delay').val(settings.delay);
+  //   $('#signup-bpm').val(settings.bpm);
+  //   $('#signup-feedback').val(settings.feedback);
+  // });
+
+
 
 });

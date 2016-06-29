@@ -27,54 +27,49 @@
   <!-- Controllers -->
   <script src="/scripts/controllers/GridController.js"></script>
 
-  <!-- Passport User -->
-  <!-- <script type="text/javascript">
-    window.user = user;
-  </script> -->
-
 </head>
 <body>
   <div class="container-fluid">
-    <div class = "row spacer-header">
-      <div class = "col-xs-5 logo">
+    <div class="row spacer-header">
+      <div class="col-xs-5 logo">
         [ bleep bloop ]
       </div>
-      <div class = "col-xs-7">
-        <span class = "pull-right"><a href="#" data-toggle="modal" data-target="#signup-modal" id="signup-link">Sign-Up</a> | <a href="#" data-toggle="modal" data-target="#login-modal">Log-in</a></span>
+      <div class="col-xs-7">
+        <span class="pull-right"><a href="#" data-toggle="modal" data-target="#about-modal" id="about-link"><span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span></a></span>
       </div>
     </div>
 
   </div>
 
   <div class="container" ng-controller="GridController as gridCtrl">
-    <div class = "row">
+    <div class="row">
 
-      <div class = "col-sm-7">
+      <div class="col-sm-7">
 
 
-        <div class = "row">
-          <div class = "col-xs-6 no-right-padding">
+        <div class="row">
+          <div class="col-xs-6 no-right-padding">
 
             <!-- Angular Grid generation -->
             <div ng-repeat="grid in gridCtrl.gridL">
-              <div class = "col-xs-3 col-{{grid.name}}">
+              <div class="col-xs-3 col-{{grid.name}}">
 
                 <div ng-repeat="pitch in grid.pitches" class="row grid">
-                  <button class = "btn btn-primary note btn-block" data-column="{{grid.name}}" data-note="{{pitch}}">{{pitch}}</button>
+                  <button class="btn btn-primary note btn-block" data-column="{{grid.name}}" data-note="{{pitch}}">{{pitch}}</button>
                 </div>
 
-                <div class = "row">
-                  <button class = "btn btn-danger note btn-sm btn-block active grid" data-column="{{grid.name}}" data-note="x">X</button>
+                <div class="row">
+                  <button class="btn btn-danger note btn-sm btn-block active grid" data-column="{{grid.name}}" data-note="x">X</button>
                 </div>
 
-                <div class = "row spacer-top">
-                  <button class = "btn btn-block btn-info btn-sm octave-up grid" data-column="{{grid.name}}" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
+                <div class="row spacer-top">
+                  <button class="btn btn-block btn-info btn-sm octave-up grid" data-column="{{grid.name}}" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
                 </div>
-                <div class = "row">
-                  <button class = "btn btn-block btn-info btn-xs octave-count grid" id="o{{grid.name}}" data-column="{{grid.name}}" data-octave="count">4</button>
+                <div class="row">
+                  <button class="btn btn-block btn-info btn-xs octave-count grid" id="o{{grid.name}}" data-column="{{grid.name}}" data-octave="count">4</button>
                 </div>
-                <div class = "row">
-                  <button class = "btn btn-block btn-info btn-sm octave-down grid" data-column="{{grid.name}}" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
+                <div class="row">
+                  <button class="btn btn-block btn-info btn-sm octave-down grid" data-column="{{grid.name}}" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
                 </div>
 
               </div>
@@ -83,28 +78,28 @@
 
           </div>
 
-          <div class = "col-xs-6 no-left-padding">
+          <div class="col-xs-6 no-left-padding">
 
             <!-- Angular Grid Generation -->
             <div ng-repeat="grid in gridCtrl.gridR">
-              <div class = "col-xs-3 col-{{grid.name}}">
+              <div class="col-xs-3 col-{{grid.name}}">
 
                 <div ng-repeat="pitch in grid.pitches" class="row grid">
-                  <button class = "btn btn-primary note btn-block" data-column="{{grid.name}}" data-note="{{pitch}}">{{pitch}}</button>
+                  <button class="btn btn-primary note btn-block" data-column="{{grid.name}}" data-note="{{pitch}}">{{pitch}}</button>
                 </div>
 
-                <div class = "row">
-                  <button class = "btn btn-danger note btn-sm btn-block active grid" data-column="{{grid.name}}" data-note="x">X</button>
+                <div class="row">
+                  <button class="btn btn-danger note btn-sm btn-block active grid" data-column="{{grid.name}}" data-note="x">X</button>
                 </div>
 
-                <div class = "row spacer-top">
-                  <button class = "btn btn-block btn-info btn-sm octave-up grid" data-column="{{grid.name}}" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
+                <div class="row spacer-top">
+                  <button class="btn btn-block btn-info btn-sm octave-up grid" data-column="{{grid.name}}" data-octave="up"><span class="glyphicon glyphicon-chevron-up" aria-hdata-columnden="true"></span></button>
                 </div>
-                <div class = "row">
-                  <button class = "btn btn-block btn-info btn-xs octave-count grid" id="o{{grid.name}}" data-column="{{grid.name}}" data-octave="count">4</button>
+                <div class="row">
+                  <button class="btn btn-block btn-info btn-xs octave-count grid" id="o{{grid.name}}" data-column="{{grid.name}}" data-octave="count">4</button>
                 </div>
-                <div class = "row">
-                  <button class = "btn btn-block btn-info btn-sm octave-down grid" data-column="{{grid.name}}" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
+                <div class="row">
+                  <button class="btn btn-block btn-info btn-sm octave-down grid" data-column="{{grid.name}}" data-octave="down"><span class="glyphicon glyphicon-chevron-down" aria-hdata-columnden="true"></span></button>
                 </div>
 
               </div>
@@ -116,8 +111,8 @@
         </div>
 
 
-        <div class = "row spacer-top">
-          <div class = "col-sm-12">
+        <div class="row spacer-top">
+          <div class="col-sm-12">
             <button class="btn btn-success btn-lg start-loop"><span class="glyphicon glyphicon-play" aria-hdata-columnden="true"></span></button>
             <button class="btn btn-danger btn-lg stop-loop" disabled="true"><span class="glyphicon glyphicon-stop" aria-hdata-columnden="true"></span></button>
           </div>
@@ -125,88 +120,40 @@
 
       </div>
 
-      <div class = "row spacer-top">
-        <div class = "col-sm-5 desktop-padding settings-panel">
-          <div class = "row ">
+      <div class="row spacer-top">
+        <div class="col-sm-5 desktop-padding settings-panel">
+          <div class="row ">
 
-            <!-- SIGN UP MODAL -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="signup-modal">
+            <!-- ABOUT MODAL -->
+            <div class="modal fade" tabindex="-1" role="dialog" id="about-modal">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">create your account</h4>
+                    <h4 class="modal-title">what's this?</h4>
                   </div>
-                  <div class="modal-body form-block">
+                  <div class="modal-body">
 
-                    <form id="newuser-form" action="/signup" method="POST">
-                      <div class="form-group">
-                        <label for="name">username</label>
-                        <input name="username" type="text" class="form-control" id="username" placeholder:="eg: supercoolperson" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="email">email</label>
-                        <input name="email" type="email" class="form-control" id="email" placeholder="eg: supercoolperson@example.com" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="password">password</label>
-                        <input name="password" type="password" class="form-control" id="password" placeholder="enter your password" required>
-                      </div>
-
-                        <input name="pattern" type="hidden" id="pattern">
-                        <input name="notes" type="hidden" id="notes">
-                        <input name="filterValue" type="hidden" id="signup-filterValue">
-                        <input name="duration" type="hidden" id="signup-duration">
-                        <input name="delay" type="hidden" id="signup-delay">
-                        <input name="feedback" type="hidden" id="signup-feedback">
-                        <input name="waveform" type="hidden" id="signup-waveform">
-                        <input name="bpm" type="hidden" id="signup-bpm">
-
-                      <div class ="form-group">
-                        <button type="submit" class="btn btn-success">Let's do this</button>
-                      </div>
-                    </form>
+                    <h4><em>Bleep/Bloop is a step sequencer programmed in Javascript.</em></h4>
+                    <p>
+                      Using the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API" target="_blank">Web Audio Api</a>, this is a synthesizer programmed to go through a sequence of notes, allowing you to create repeating melodies and patterns.
+                    </p>
+                    <p>
+                      As a musician, when I first heard that Javascript natively included an audio feature capable of creating your own Oscillators, I knew I had to get my hands on it. It's been a fun project, as it presented a number of problems you wouldn't usually come across in web development, which are specific to creating an instrument.
+                    </p>
+                    <p>
+                      <a href="https://github.com/mradambeck/javascript-step-sequencer" target="_blank">Click here to checkout the project on Github.</a>
+                    </p>
 
                   </div>
                 </div><!-- /.modal-content -->
               </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
-
-            <!-- LOGIN MODAL -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="login-modal">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">login</h4>
-                  </div>
-                  <div class="modal-body form-block">
-
-                    <form id="login-form" action="/login" method="POST">
-                      <div class="form-group">
-                        <label for="username">username</label>
-                        <input name="username" type="text" class="form-control" id="username" placeholder="eg: supercoolperson" required>
-                      </div>
-                      <div class="form-group">
-                        <label for="password">password</label>
-                        <input name="password" type="password" class="form-control" id="password" placeholder="enter your password" required>
-                      </div>
-
-                      <div class ="form-group">
-                        <button type="submit" class="btn btn-success">Time for tunes</button>
-                      </div>
-                    </form>
-
-                  </div>
-                </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-
 
           </div>
 
-          <div class = "row">
-            <div class = "col-xs-3">
+          <div class="row">
+            <div class="col-xs-3">
               <h3>WAVE</h3>
             </div>
             <div class ="col-xs-9 dropdown-spacer-top">
@@ -218,77 +165,77 @@
               </select>
             </div>
           </div>
-          <div class = "row">
+          <div class="row">
             <hr />
           </div>
 
           <!-- Span keeps BPM active while troubleshooting setInterval -->
           <span class="display-none">
-            <div class = "row">
-              <div class = "col-xs-3">
+            <div class="row">
+              <div class="col-xs-3">
                 <h3>BPM</h3>
               </div>
-              <div class = "col-xs-9 range-spacer-top">
+              <div class="col-xs-9 range-spacer-top">
                 <input type="range" id="bpm" min="30" value="120" max="225" step="1">
               </div>
             </div>
-            <div class = "row">
+            <div class="row">
               <hr />
             </div>
           </span>
 
 
-          <div class = "row">
-            <div class = "col-xs-3">
+          <div class="row">
+            <div class="col-xs-3">
               <h3>FILTER</h3>
             </div>
-            <div class = "col-xs-9 range-spacer-top">
+            <div class="col-xs-9 range-spacer-top">
               <input type="range" id="filter" min="15" value="5000" max="7000" step="1">
             </div>
           </div>
-          <div class = "row">
+          <div class="row">
             <hr />
           </div>
 
-          <div class = "row">
-            <div class = "col-xs-3">
+          <div class="row">
+            <div class="col-xs-3">
               <h3>LENGTH</h3>
             </div>
-            <div class = "col-xs-9 range-spacer-top">
+            <div class="col-xs-9 range-spacer-top">
               <input type="range" id="duration" min="3" value="50" max="200" step="1">
             </div>
           </div>
-          <div class = "row">
+          <div class="row">
             <hr />
           </div>
 
-          <div class = "row">
-            <div class = "col-xs-3">
+          <div class="row">
+            <div class="col-xs-3">
               <h3>DELAY</h3>
             </div>
-            <div class = "col-xs-9 range-spacer-top">
+            <div class="col-xs-9 range-spacer-top">
               <input type="range" id="delay" min="1" value="5" max="10" step="1">
             </div>
           </div>
-          <div class = "row">
+          <div class="row">
             <hr />
           </div>
 
-          <div class = "row">
-            <div class = "col-xs-3">
+          <div class="row">
+            <div class="col-xs-3">
               <h3>FEEDBACK</h3>
             </div>
-            <div class = "col-xs-9 range-spacer-top">
+            <div class="col-xs-9 range-spacer-top">
               <input type="range" id="feedback" min="1" value="5" max="9" step="1">
             </div>
           </div>
-          <div class = "row">
+          <!-- <div class="row">
             <hr />
           </div>
 
-          <div class = "row">
+          <div class="row">
               <button class="btn btn-success btn-block" disabled="disabled">Sign Up to Save Settings</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
