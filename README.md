@@ -6,8 +6,6 @@ This is a, 8 bar step sequencer made with the Javascript Web Audio API.
 
 [Link to the site on Heroku](https://stepsequencer.herokuapp.com/)
 
-### Please note that this is an in progress project.
-
 Technologies Used:
 * Javascript
 * Node.js
