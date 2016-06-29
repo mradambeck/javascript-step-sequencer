@@ -21,7 +21,7 @@ db.Song.remove({}, function(err, songs){
   } else {
     console.log('removed all songs');
 
-    // create new records based on the array books_list
+    // create new records based on the array pattern
     db.Song.create(pattern, function(err, songs){
       if (err) { return console.log('err', err); }
       console.log("created", pattern.length, "songs");
