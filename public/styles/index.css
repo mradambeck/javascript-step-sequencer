@@ -19,6 +19,11 @@ a {
 .dropdown-spacer-top {
   margin-top: 15px; }
 
+.glyphicon-question-sign {
+  font-size: 16px; }
+  .glyphicon-question-sign:active {
+    color: #2babaa; }
+
 .grid {
   box-shadow: 3px 3px 4px #b3b3b3 !important; }
 
@@ -26,6 +31,9 @@ a {
   font-size: 16px !important;
   font-weight: 600 !important;
   font-family: "Comfortaa", sans-serif; }
+
+.modal-body {
+  font-weight: 300; }
 
 .modal-content {
   border-radius: 0; }
