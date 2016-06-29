@@ -42,15 +42,14 @@
   </div>
 
   <div class="container" ng-controller="GridController as gridCtrl">
+
     <div class="row">
-
       <div class="col-sm-7">
-
-
         <div class="row">
           <div class="col-xs-6 no-right-padding">
 
             <!-- Angular Grid generation -->
+            <!-- These are split into two halves as the math for the correct amount fo bars doesn't divide into 12 evenly (Bootstrap grids are in 12's) -->
             <div ng-repeat="grid in gridCtrl.gridL">
               <div class="col-xs-3 col-{{grid.name}}">
 
@@ -74,7 +73,7 @@
 
               </div>
             </div>
-            <!-- End Angular -->
+            <!-- End Angular Grid -->
 
           </div>
 
@@ -104,12 +103,10 @@
 
               </div>
             </div>
-            <!-- End Angular -->
+            <!-- End Angular Grid -->
 
           </div>
-
         </div>
-
 
         <div class="row spacer-top">
           <div class="col-sm-12">
@@ -152,6 +149,7 @@
 
           </div>
 
+          <!-- SETTINGS -->
           <div class="row">
             <div class="col-xs-3">
               <h3>WAVE</h3>
@@ -183,7 +181,7 @@
               <hr />
             </div>
           </span>
-
+          <!-- End BPM -->
 
           <div class="row">
             <div class="col-xs-3">
@@ -233,13 +231,8 @@
         </div>
       </div>
     </div>
-
-
-
-
-
   </div>
-
+  <!-- End GridController -->
 
 
 </body>

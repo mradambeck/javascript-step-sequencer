@@ -47,7 +47,7 @@ class FilterBank {
     // Delay
     let delay = this.delay = the_context.createDelay();
     let delayFeedback = the_context.createGain();
-    let delayDegradation = the_context.createBiquadFilter();
+    let delayDegradation = the_context.createBiquadFilter(); // This just makes the delay sound nicer
     delayFeedback.gain.value = feedbackValue;
     delay.delayTime.value = delayValue;
     delayDegradation.frequency.value = 1500;
@@ -64,6 +64,8 @@ class FilterBank {
     delay.connect(delayFeedback);
     delayFeedback.connect(delay);
     delay.connect(sideChainVolume);
+
+    // Output
     sideChainVolume.connect(connection);
     bq.connect(connection);
 
